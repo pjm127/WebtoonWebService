@@ -12,17 +12,17 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.springframework.stereotype.Component;
 
 //@Component
-public class CrawlingWebtoonUrls {
+public class CrawlingKakaoWebtoonUrls {
 	
 	private WebDriver driver;
 	private static final String url = "https://webtoon.kakao.com/original-webtoon?tab=";
-	private static final String[] days = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"}; 
+	private static final String[] days = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
 	
 	public void process() {
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\KWC\\Desktop\\Misc\\webCrawlingRequirements\\msedgedriver.exe");
 		
 		EdgeOptions options = new EdgeOptions();
-		options.addArguments("--headless", // ������ �� ���̰�
+		options.addArguments("--headless", // 브라우저 안 보이게 설정
 				"--disable-infobars");
 		driver = new EdgeDriver();
 		
@@ -42,8 +42,8 @@ public class CrawlingWebtoonUrls {
 		List<String> list = new ArrayList<>();
 		
 		driver.get(url + day);
-		
-		// ���� �� �������̹Ƿ� ���� �ε�� ������ �ִ� 5�� ��ٸ�
+
+		// 자바스크립트 다 불러올 때까지 5초 기다림
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 		
 		int webtoonCount = 0;

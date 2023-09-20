@@ -7,8 +7,17 @@ public class Main {
 	public static void main(String[] args) {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 		
-		CrawlingWebtoonUrls crawlingExample = context.getBean(CrawlingWebtoonUrls.class);
-		crawlingExample.process();
+		System.out.println("===================================\n"
+				+ "카카오웹툰\n"
+				+ "===================================");
+		CrawlingKakaoWebtoonUrls crawlingKakaoWebtoonUrls = context.getBean(CrawlingKakaoWebtoonUrls.class);
+		crawlingKakaoWebtoonUrls.process();
+
+		System.out.println("===================================\n"
+				+ "네이버웹툰\n"
+				+ "===================================");
+		CrawlingNaverWebtoonUrls crawlingNaverWebtoonUrls = context.getBean(CrawlingNaverWebtoonUrls.class);
+		crawlingNaverWebtoonUrls.process();
 		
 		context.close();
 	}

@@ -8,8 +8,13 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
 	
 	@Bean
-	public CrawlingWebtoonUrls crawlingExample() {
-		return new CrawlingWebtoonUrls();
+	public CrawlingKakaoWebtoonUrls crawlingKakaoWebtoonUrls() {
+		return new CrawlingKakaoWebtoonUrls();
+	}
+	
+	@Bean
+	public CrawlingNaverWebtoonUrls crawlingNaverWebtoonUrls() {
+		return new CrawlingNaverWebtoonUrls();
 	}
 
 }
