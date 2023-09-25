@@ -9,13 +9,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
-import org.springframework.stereotype.Component;
 
 //@Component
 public class CrawlingKakaoWebtoonUrls {
 	
 	private WebDriver driver;
-	private static final String url = "https://webtoon.kakao.com/original-webtoon?tab=";
+	private static final String baseUrl = "https://webtoon.kakao.com/original-webtoon?tab=";
 	private static final String[] days = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
 	
 	public void process() {
@@ -39,9 +38,9 @@ public class CrawlingKakaoWebtoonUrls {
 	}
 	
 	private List<String> getDataList(String day) throws InterruptedException {
-		List<String> list = new ArrayList<>();
+		List<String> urls = new ArrayList<>();
 		
-		driver.get(url + day);
+		driver.get(baseUrl + day);
 
 		// 자바스크립트 다 불러올 때까지 5초 기다림
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
@@ -54,21 +53,24 @@ public class CrawlingKakaoWebtoonUrls {
 			if (url != null) {
 				System.out.println("================");
 				System.out.println(url);
+				urls.add(url);
 			}
 		}
 		webtoonCount += elements.size();
 		
 		elements = driver.findElements(By.cssSelector("a.w-full.h-full.relative.overflow-hidden.rounded-8"));
 		for (WebElement element : elements) {
+			String url = element.getDomProperty("href");
 			System.out.println("================");
-			System.out.println(element.getDomProperty("href"));
+			System.out.println(url);
+			urls.add(url);
 		}
 		webtoonCount += elements.size();
 		
 		System.out.println("================");
 		System.out.println("webtoonCount(" + day + "): " + webtoonCount);
 		
-		return list;
+		return urls;
 	}
 
 }
