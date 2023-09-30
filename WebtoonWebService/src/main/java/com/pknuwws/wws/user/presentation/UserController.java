@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -23,4 +20,14 @@ public class UserController {
         return ResponseEntity.ok(userService.join(request));
     }
 
+    @GetMapping("/check-id")
+    public ResponseEntity<String> validateDuplicateUserId(@RequestParam String userId) {
+        userService.validateDuplicateUserId(userId);
+        return ResponseEntity.ok("중복되는 아이디 없음");
+    }
+    @GetMapping("/check-nickname")
+    public ResponseEntity<String> validateDuplicateNickName(@RequestParam String nickName) {
+        userService.validateDuplicateNickName(nickName);
+        return ResponseEntity.ok("중복되는 닉네임 없음");
+    }
 }
