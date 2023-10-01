@@ -14,8 +14,8 @@ import org.openqa.selenium.edge.EdgeOptions;
 public class CrawlingKakaoWebtoonUrls {
 	
 	private WebDriver driver;
-	private static final String baseUrl = "https://webtoon.kakao.com/original-webtoon?tab=";
-	private static final String[] days = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
+	private static final String BASE_URL = "https://webtoon.kakao.com/original-webtoon?tab=";
+	private static final String[] DAYS = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
 	
 	public void process() {
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\KWC\\Desktop\\Misc\\webCrawlingRequirements\\msedgedriver.exe");
@@ -26,8 +26,8 @@ public class CrawlingKakaoWebtoonUrls {
 		driver = new EdgeDriver();
 		
 		try {
-			for (String day : days) {
-				getDataList(day);
+			for (String day : DAYS) {
+				getWebtoonListOf(day);
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -37,10 +37,10 @@ public class CrawlingKakaoWebtoonUrls {
 		driver.quit();
 	}
 	
-	private List<String> getDataList(String day) throws InterruptedException {
+	private List<String> getWebtoonListOf(String day) throws InterruptedException {
 		List<String> urls = new ArrayList<>();
 		
-		driver.get(baseUrl + day);
+		driver.get(BASE_URL + day);
 
 		// 자바스크립트 다 불러올 때까지 5초 기다림
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
