@@ -3,11 +3,14 @@ package com.pknuwws.wws.user.application;
 import com.pknuwws.wws.exception.CustomException;
 import com.pknuwws.wws.exception.ResponseCode;
 import com.pknuwws.wws.user.domain.User;
+import com.pknuwws.wws.user.dto.LoginRequest;
 import com.pknuwws.wws.user.dto.SaveUserRequest;
 import com.pknuwws.wws.user.infrastructure.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,7 @@ import static com.pknuwws.wws.exception.ResponseCode.USER_NICKNAME_DUPLICATE;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final AuthenticationManager authenticationManager;
 
     //회원가입
     public Long join(SaveUserRequest request) {
@@ -48,6 +52,17 @@ public class UserService {
                 .ifPresent(m -> {
                     throw new CustomException(USER_NICKNAME_DUPLICATE);
                 });
+    }
+
+    //로그인
+    public void login(LoginRequest loginRequest) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getUserId(),
+                        loginRequest.getPassword()
+                )
+        );
+
     }
 
 }

@@ -1,6 +1,7 @@
 package com.pknuwws.wws.user.presentation;
 
 import com.pknuwws.wws.user.application.UserService;
+import com.pknuwws.wws.user.dto.LoginRequest;
 import com.pknuwws.wws.user.dto.SaveUserRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,5 +30,11 @@ public class UserController {
     public ResponseEntity<String> validateDuplicateNickName(@RequestParam String nickName) {
         userService.validateDuplicateNickName(nickName);
         return ResponseEntity.ok("중복되는 닉네임 없음");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginRequest request) {
+        userService.login(request);
+        return ResponseEntity.ok("로그인 성공");
     }
 }

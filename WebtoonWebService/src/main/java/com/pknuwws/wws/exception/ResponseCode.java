@@ -9,7 +9,8 @@ import org.springframework.http.HttpStatus;
 public enum ResponseCode {
     OK(HttpStatus.OK, "성공"),
     USER_ID_DUPLICATE(HttpStatus.BAD_REQUEST, "이미 존재하는 아이디입니다."),
-    USER_NICKNAME_DUPLICATE(HttpStatus.BAD_REQUEST, "이미 존재하는 닉네임입니다.");
+    USER_NICKNAME_DUPLICATE(HttpStatus.BAD_REQUEST, "이미 존재하는 닉네임입니다."),
+    LOGIN_FAIL(HttpStatus.BAD_REQUEST, "아이디 또는 비밀번호를 확인해 주세요.");
     private final HttpStatus httpStatus;
     private final String detail;
 }
