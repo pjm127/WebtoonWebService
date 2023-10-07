@@ -28,13 +28,17 @@ public class WebtoonService {
         List<WebtoonListRequest> webtoonListRequests = new ArrayList<>();
 
         for (Webtoon webtoon : allWebtoons) {
-            WebtoonListRequest webtoonListRequest = new WebtoonListRequest();
-            // 여기서 Webtoon 엔터티의 필드 값을 WebtoonListRequest DTO에 매핑
-            webtoonListRequest.setTitle(webtoon.getTitle());
-            webtoonListRequest.setGenre(webtoon.getGenre());
-            // 나머지 필드들도 매핑
+            WebtoonListRequest build = WebtoonListRequest.builder()
+                    .title(webtoon.getTitle())
+                    .link(webtoon.getLink())
+                    .thumbnail(webtoon.getThumbnail())
+                    .love(webtoon.getLove())
+                    .genre(webtoon.getGenre())
+                    .firstEpisodeDay(webtoon.getFirstEpisodeDay())
+                    .publishingDay(webtoon.getPublishingDay())
+                    .build();
 
-            webtoonListRequests.add(webtoonListRequest);
+            webtoonListRequests.add(build);
         }
 
         return webtoonListRequests;
