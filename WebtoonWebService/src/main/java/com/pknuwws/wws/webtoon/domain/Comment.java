@@ -17,11 +17,11 @@ public class Comment {
     private Long id;
 
     private String userId;
-    private String coment;
+    private String comment;
     @ManyToOne
     private Webtoon webtoon;
 
     public void update(String comment) {
-        this.coment = comment;
+        this.comment = comment;
     }
 }

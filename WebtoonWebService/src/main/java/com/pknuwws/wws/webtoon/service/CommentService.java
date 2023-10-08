@@ -1,6 +1,7 @@
 package com.pknuwws.wws.webtoon.service;
 
 import com.pknuwws.wws.exception.CustomException;
+import com.pknuwws.wws.webtoon.dto.CommentListRequest;
 import com.pknuwws.wws.webtoon.dto.CommentRequest;
 import com.pknuwws.wws.webtoon.domain.Comment;
 import com.pknuwws.wws.webtoon.domain.Webtoon;
@@ -9,6 +10,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import static com.pknuwws.wws.exception.ResponseCode.NOT_FOUND_WEBTOON;
 
@@ -19,8 +22,9 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     //해당 웹툰 - 댓글 전체
-    public void getAllComment() {
-        commentRepository.findAll();
+    public List<CommentListRequest> getAllComment(Long webtoonId){
+        return commentRepository.findAllByWebtoonId(webtoonId);
+
     }
 
     //해당 웹툰 - 댓글 한개 (수정, 삭제)
@@ -35,7 +39,7 @@ public class CommentService {
         log.info("web = {}", webtoon);
         Comment com = Comment.builder()
                 .webtoon(webtoon)
-                .coment(createCommentRequest.getComment())
+                .comment(createCommentRequest.getComment())
                 .build();
         commentRepository.save(com);
 

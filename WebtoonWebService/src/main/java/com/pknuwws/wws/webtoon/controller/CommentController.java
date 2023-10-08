@@ -1,8 +1,10 @@
 package com.pknuwws.wws.webtoon.controller;
 
+import com.pknuwws.wws.webtoon.dto.CommentListRequest;
 import com.pknuwws.wws.webtoon.dto.CommentRequest;
 import com.pknuwws.wws.webtoon.domain.Comment;
 import com.pknuwws.wws.webtoon.domain.Webtoon;
+import com.pknuwws.wws.webtoon.dto.WebtoonListRequest;
 import com.pknuwws.wws.webtoon.service.CommentService;
 import com.pknuwws.wws.webtoon.service.WebtoonService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -20,6 +23,13 @@ import java.security.Principal;
 public class CommentController {
     private final CommentService commentService;
     private final WebtoonService webtoonService;
+
+    //웹툰선택시 해당 웹툰의 댓글 전체
+    @GetMapping("/detail/{webtoonId}")
+    public ResponseEntity<List<CommentListRequest>> getWebtoon(@PathVariable("webtoonId") Long webtoonId){
+        return ResponseEntity.ok(commentService.getAllComment(webtoonId));
+    }
+
 
     //댓글 작성
     @PostMapping("/create/{id}")
