@@ -1,8 +1,10 @@
 package com.pknuwws.wws.user.application;
 
+import com.pknuwws.wws.config.security.JwtTokenProvider;
 import com.pknuwws.wws.exception.CustomException;
 import com.pknuwws.wws.exception.ResponseCode;
 import com.pknuwws.wws.user.domain.User;
+import com.pknuwws.wws.user.dto.AuthenticationResponse;
 import com.pknuwws.wws.user.dto.LoginRequest;
 import com.pknuwws.wws.user.dto.SaveUserRequest;
 import com.pknuwws.wws.user.infrastructure.UserRepository;
@@ -14,6 +16,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 import static com.pknuwws.wws.exception.ResponseCode.USER_ID_DUPLICATE;
 import static com.pknuwws.wws.exception.ResponseCode.USER_NICKNAME_DUPLICATE;
 
@@ -23,12 +27,13 @@ import static com.pknuwws.wws.exception.ResponseCode.USER_NICKNAME_DUPLICATE;
 public class UserService {
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider jwtTokenProvider;
 
     //회원가입
     public Long join(SaveUserRequest request) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         User saveUser = User.builder()
-                .userId(request.getUserId())
+                .loginId(request.getUserId())
                 .birthDate(request.getBirthDate())
                 .nickName(request.getNickName())
                 .password(passwordEncoder.encode(request.getPassword()))
@@ -39,7 +44,7 @@ public class UserService {
     }
     //회원가입 - 아이디 중복체크
     public void validateDuplicateUserId(String userId) {
-        userRepository.findByUserId(userId)
+        userRepository.findByLoginId(userId)
                 .ifPresent(m -> {
                     throw new CustomException(USER_ID_DUPLICATE);
                 });
@@ -55,14 +60,26 @@ public class UserService {
     }
 
     //로그인
-    public void login(LoginRequest loginRequest) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUserId(),
-                        loginRequest.getPassword()
-                )
-        );
+    public AuthenticationResponse login(LoginRequest loginRequest) {
+        log.info("userid is : {}" , loginRequest.getUserId());
+        log.info("password is : {}" , loginRequest.getPassword());
 
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserId(), loginRequest.getPassword()));
+
+        User user = userRepository.findByLoginId(loginRequest.getUserId()).orElseThrow(()-> new IllegalArgumentException("아이디가 존재하지 않습니다."));
+
+        log.info("user is : {}" , user.getLoginId());
+        String accessToken = jwtTokenProvider.generateToken(user);
+        String refreshToken = jwtTokenProvider.generateRefreshToken(user);
+
+        log.info("accessToken is : {}" , accessToken);
+        log.info("refreshToken is : {}" , refreshToken);
+
+        return AuthenticationResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .userId(user.getLoginId())
+                .build();
     }
 
 }

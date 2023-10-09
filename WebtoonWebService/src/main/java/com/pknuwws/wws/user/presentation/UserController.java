@@ -1,6 +1,7 @@
 package com.pknuwws.wws.user.presentation;
 
 import com.pknuwws.wws.user.application.UserService;
+import com.pknuwws.wws.user.dto.AuthenticationResponse;
 import com.pknuwws.wws.user.dto.LoginRequest;
 import com.pknuwws.wws.user.dto.SaveUserRequest;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +18,14 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/join")
-    public ResponseEntity<Long> join(@RequestBody SaveUserRequest request) {
-        return ResponseEntity.ok(userService.join(request));
+    public ResponseEntity<String> signup(@RequestBody SaveUserRequest userSignUpDto) {
+        userService.join(userSignUpDto);
+        return ResponseEntity.ok("회원가입 완료");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest loginRequest) {
+        return ResponseEntity.ok(userService.login(loginRequest));
     }
 
     @GetMapping("/check-id")
@@ -32,9 +39,5 @@ public class UserController {
         return ResponseEntity.ok("중복되는 닉네임 없음");
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest request) {
-        userService.login(request);
-        return ResponseEntity.ok("로그인 성공");
-    }
+
 }

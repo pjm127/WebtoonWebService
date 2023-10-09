@@ -29,6 +29,8 @@ public class Webtoon {
     private PublishingDay  publishingDay; //연재 요일
 
 
+
+
     @Builder.Default
     @OneToMany(mappedBy = "webtoon",cascade = CascadeType.ALL)
     private List<Comment> coments = new ArrayList<>();
