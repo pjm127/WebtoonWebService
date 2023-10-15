@@ -1,84 +1,26 @@
 package com.pknuwws.wws;
 
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 
-	public CrawlingNaverWebtoonInfos() {
-		BASE_URL = "https://comic.naver.com/webtoon?tab=";
-		GENRES = new String[] {"로맨스", "액션", "판타지", "시대극", "무협", "스포츠", "스릴러", "일상"};
+	public CrawlingNaverWebtoonInfos(WebtoonRepository webtoonRepository) {
+		super(webtoonRepository);
 	}
 
-	@Override
-	public void process() {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\KWC\\Desktop\\Misc\\webCrawlingRequirements\\msedgedriver.exe");
-
-		options = new EdgeOptions();
-		options.addArguments("--disable-infobars"
-//				"--headless",
-//				"--no-sandbox",
-//				"--user-data-dir=C:\\Users\\KWC\\AppData\\Local\\Microsoft\\Edge\\User Data"
-				);
-		driver = new EdgeDriver(options);
-		
-		// 네이버에서 봇 로그인을 차단하므로 수동으로 로그인
-		String loginUrl = "https://nid.naver.com/nidlogin.login?mode=form&url=https://www.naver.com/";
-		driver.get(loginUrl);
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-		try {
-			Set<String> urls = new HashSet<>();
-
-			// 요일별 웹툰 링크 크롤링
-			for (String day : DAYS) {
-				switchToTab(0);
-				urls.addAll(getWebtoonListOfDay(day));
-
-//				driver.quit();
-			}
-			// 웹툰별 정보 크롤링
-			for (String url : urls) {
-//				driver = new EdgeDriver(options);
-				((JavascriptExecutor) driver).executeScript("window.open()");
-				switchToTab(1);
-				getWebtoonInfos(url);
-				driver.close();
-				switchToTab(-1);
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		} finally {
-			driver.quit();
-		}
-	}
+	private String BASE_URL = "https://comic.naver.com/webtoon?tab=";
+	private String[] GENRES = new String[] {"로맨스", "액션", "판타지", "사극", "무협", "스포츠", "스릴러", "일상"};
 
 	@Override
-	protected List<String> getWebtoonListOfDay(String day) {
+	protected List<String> crawlWebtoonUrlsOfDay(String day) {
 		List<String> urls = new ArrayList<>();
 
 		driver.get(BASE_URL + day);
@@ -90,12 +32,12 @@ public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 		// id로 ContentList 찾고 그 안의 웹툰 원소들 얻기 
 		WebElement contentList = driver.findElement(By.className("ContentList__content_list--q5KXY"));
 		List<WebElement> elements = contentList.findElements(By.className("Poster__link--sopnC"));
-		System.out.println("웹툰 개수: " + elements.size());
+//		System.out.println("웹툰 개수: " + elements.size());
 
 		for (WebElement element : elements) {
 			String url = element.getAttribute("href");
-			System.out.println("================");
-			System.out.println(url);
+//			System.out.println("================");
+//			System.out.println(url);
 			urls.add(url);
 		}
 
@@ -110,12 +52,13 @@ public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 	 * 장르: 로맨스, 액션, 판타지, 시대극, 무협, 스포츠, 미스터리, 일상 ok
 	 * 조회수 (찾기 어려움. 좋아요로 대체할 수 있는가?, 최신 화 기준) ok
 	 * 첫 화 날짜 (신작 웹툰 판별 목적) ok
-	 * 연재 요일 ok
 	 * 요일 ok
+	 * TODO
+	 * 플랫폼 정보
 	 */
 	@Override
-	protected Map<String, String> getWebtoonInfos(String url) {
-		Map<String, String> webtoonInfos = new HashMap<>();
+	protected Webtoon crawlWebtoons(String url) {
+		Webtoon webtoon = new Webtoon();
 		driver.get(url);
 
 		// 썸네일 뜰 때까지 기다림
@@ -126,46 +69,49 @@ public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 
 		// 제목
 		String title = driver.findElement(By.className("EpisodeListInfo__title--mYLjC")).getText();
-		webtoonInfos.put("title", title);
-		System.out.println("제목: " + title);
+		webtoon.setTitle(title);
+//		System.out.println("제목: " + title);
+
+		// 링크
+		webtoon.setUrl(url);
 
 		// 썸네일
 		String thumbnail = driver.findElement(By.className("Poster__image--d9XTI")).getAttribute("src");
-		webtoonInfos.put("thumbnail", thumbnail);
-		System.out.println("썸네일: " + thumbnail);
-		
+		webtoon.setThumbnailUrl(thumbnail);
+//		System.out.println("썸네일: " + thumbnail);
+
 		// 요일
-		System.out.print("연재 요일: ");
+//		System.out.print("연재 요일: ");
 		String dayInfo = driver.findElement(By.className("ContentMetaInfo__info_item--utGrf")).getText();
-		List<String> days = new ArrayList<>();
+		String days = "";
 		for (String d : DAYS_KOREAN) {
 			if (dayInfo.contains(d)) {
-				System.out.print(d);
-				days.add(d);
+//				System.out.print(d);
+				days += d + ",";
 			}
 		}
-		System.out.println();
+		webtoon.setDay(days);
+//		System.out.println();
 
 		// 태그 (장르)
 		// GENRES에 지정된 키워드가 태그에 있으면 표시
 		List<WebElement> tags = driver.findElements(By.className("TagGroup__tag--xu0OH"));
-		int genreIndex = 0;
+		String genres = "";
 		for (int i = 0; i < tags.size(); i++) {
 			for (String genre : GENRES) {
 				if (tags.get(i).getText().contains(genre)) {
-					if (!webtoonInfos.values().contains(genre)) {
-						webtoonInfos.put("genre" + (genreIndex + 1), genre);
+					if (!genres.contains(genre)) {
+						genres += genre + ",";
 					}
-					System.out.println("태그(장르) " + (genreIndex + 1) + ": " + genre);
-					genreIndex++;
 				}
 			}
 		}
+		webtoon.setGenre(genres);
 
 		// 최신 화에서 좋아요 가져오기
-		// 최신 화는 Webdriver 새로 열기
+		// 최신 화는 tab 새로 열기
 		String latestUrl = driver.findElement(By.className("EpisodeListList__link--DdClU")).getAttribute("href");
-		System.out.println("최신 화 링크: " + latestUrl);
+//		System.out.println("최신 화 링크: " + latestUrl);
 		((JavascriptExecutor) driver).executeScript("window.open()");
 		switchToTab(2);
 		driver.get(latestUrl);
@@ -174,15 +120,15 @@ public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 				ExpectedConditions.presenceOfElementLocated(By.cssSelector(".u_cnt._count"))
 				);
 		String likeCount = driver.findElement(By.cssSelector(".u_cnt._count")).getText();
-		webtoonInfos.put("likeCount", likeCount);
-		System.out.println("최신화 좋아요: " + likeCount);
+		webtoon.setLikeCount(Integer.parseInt(likeCount.replaceAll(",", "")));
+//		System.out.println("최신화 좋아요: " + likeCount);
 		driver.close();
 		switchToTab(1);
 
 		// 첫 화부터 정렬해서 첫 화 날짜 가져오기
 		WebElement ascendingButton = driver.findElements(
 				By.className("EpisodeListView__button_tab--NUsn2")).get(1);
-		System.out.println(ascendingButton.getText());
+//		System.out.println(ascendingButton.getText());
 		ascendingButton.click();
 		try {
 			Thread.sleep(100);
@@ -190,77 +136,23 @@ public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 			e.printStackTrace();
 		}
 		String firstDate = driver.findElement(By.className("date")).getText();
-		webtoonInfos.put("firstDate", firstDate);
-		System.out.println(firstDate);
+		webtoon.setFirstDate(firstDate);
+//		System.out.println(firstDate);
 
-		return webtoonInfos;
+		// 플랫폼은 네이버
+		webtoon.setPlatform("Naver");
+
+		return webtoon;
 	}
 
 	@Override
 	protected void login() {
-		Scanner scanner = null;
+		driver.get("https://nid.naver.com/nidlogin.login?mode=form&url=https://www.naver.com/");
 		try {
-			// 아래 경로에 성인 인증 가능한 아이디, 비밀번호 한 줄 씩 적힌 파일 있어야 함
-			scanner = new Scanner(new File("./src/main/resources/idpw.txt"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		StringSelection data;
-		Clipboard clipboard;
-		
-		try {
-			Thread.sleep(1000);
+			Thread.sleep(25000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
-		// id 입력
-		String id = scanner.nextLine();
-		data = new StringSelection(id);
-		clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-		clipboard.setContents(data, data);
-		WebElement element = driver.findElement(By.id("id"));
-		element.click();
-		try {
-			Thread.sleep(623);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		element.sendKeys(Keys.CONTROL, "v");
-		try {
-			Thread.sleep(923);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-		// pw 입력
-		String pw = scanner.nextLine();
-		data = new StringSelection(pw);
-		clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-		clipboard.setContents(data, data);
-		element = driver.findElement(By.id("pw"));
-		element.click();
-		try {
-			Thread.sleep(523);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		element.sendKeys(Keys.CONTROL, "v");
-		try {
-			Thread.sleep(1023);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-		// 로그인 버튼 클릭
-		element = driver.findElement(By.id("log.login"));
-		element.click();
 	}
 
 }
