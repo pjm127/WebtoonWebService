@@ -1,7 +1,11 @@
 
 package com.pknuwws.wws;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,26 +20,18 @@ import lombok.NoArgsConstructor;
 public class Webtoon {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String title;
-	
 	private String url;
-	
 	private String thumbnailUrl;
-	
 	private String genre;
-	
 	private Integer likeCount;
-	
 	private Integer overallLikeCount;
-	
-	private Float likePerOverall;
-	
-	private String firstDate;
-	
-	private String day;
-	
+	private Float likeProportion; // likeCount / overallLikeCount
+	private LocalDate firstDate;
+	private String day; // 연재 요일
 	private String platform;
 
 }

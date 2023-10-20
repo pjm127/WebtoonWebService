@@ -7,10 +7,6 @@ public class Main {
 	public static void main(String[] args) {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 		
-		// TODO
-		// 로그인을 맨 먼저 하도록 할 필요 있음
-		// 멀티 스레드로 해결 가능
-		
 		Thread naverWebtoonThread = new Thread() {
 			@Override
 			public void run() {

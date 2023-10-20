@@ -1,6 +1,8 @@
 package com.pknuwws.wws;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,8 +55,6 @@ public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 	 * 조회수 (찾기 어려움. 좋아요로 대체할 수 있는가?, 최신 화 기준) ok
 	 * 첫 화 날짜 (신작 웹툰 판별 목적) ok
 	 * 요일 ok
-	 * TODO
-	 * 플랫폼 정보
 	 */
 	@Override
 	protected Webtoon crawlWebtoons(String url) {
@@ -135,8 +135,9 @@ public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		String firstDate = driver.findElement(By.className("date")).getText();
-		webtoon.setFirstDate(firstDate);
+		String firstDate = "20" + driver.findElement(By.className("date")).getText();
+		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+		webtoon.setFirstDate(LocalDate.parse(firstDate, dateTimeFormatter));
 //		System.out.println(firstDate);
 
 		// 플랫폼은 네이버

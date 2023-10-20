@@ -68,7 +68,7 @@ public abstract class CrawlingWebtoonInfos {
 		System.out.println("전체 웹툰 수: " + webtoons.size());
 		System.out.println("============================================================================");
 		for (Webtoon webtoon : webtoons) {
-			webtoon.setLikePerOverall((float) (webtoon.getLikeCount() / (float) overallLikeCount));
+			webtoon.setLikeProportion((float) (webtoon.getLikeCount() / (float) overallLikeCount));
 			webtoon.setOverallLikeCount(overallLikeCount);
 			
 			System.out.println("제목: " + webtoon.getTitle());
@@ -79,7 +79,7 @@ public abstract class CrawlingWebtoonInfos {
 			System.out.println("썸네일: " + webtoon.getThumbnailUrl());
 			System.out.println("좋아요 수: " + webtoon.getLikeCount());
 			System.out.println("전체 좋아요 수: " + webtoon.getOverallLikeCount());
-			System.out.println("(좋아요 수) / (전체 좋아요 수): " + webtoon.getLikePerOverall());
+			System.out.println("(좋아요 수) / (전체 좋아요 수): " + webtoon.getLikeProportion());
 			System.out.println("첫 화 날짜: " + webtoon.getFirstDate());
 			System.out.println("============================================================================");
 			

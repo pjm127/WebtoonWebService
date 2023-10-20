@@ -1,6 +1,8 @@
 package com.pknuwws.wws;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,8 +112,9 @@ public class CrawlingKakaoWebtoonInfos extends CrawlingWebtoonInfos {
 
 		// 첫 화 날짜 가져오기
 		List<WebElement> dates = driver.findElements(By.cssSelector(".whitespace-pre-wrap.break-all.break-words.support-break-word.overflow-hidden.text-ellipsis.leading-14.opacity-50.s11-regular-white"));
-		String firstDate = dates.get(dates.size() - 1).getText();
-		webtoon.setFirstDate(firstDate);
+		String firstDate = "20" + dates.get(dates.size() - 1).getText();
+		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+		webtoon.setFirstDate(LocalDate.parse(firstDate, dateTimeFormatter));
 //		System.out.println(firstDate);
 
 		// 요일
