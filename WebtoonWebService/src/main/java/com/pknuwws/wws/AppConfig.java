@@ -4,17 +4,22 @@ package com.pknuwws.wws;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import lombok.RequiredArgsConstructor;
+
 @Configuration
+@RequiredArgsConstructor
 public class AppConfig {
 	
+	private final WebtoonRepository webtoonRepository;
+	
 	@Bean
-	public CrawlingKakaoWebtoonUrls crawlingKakaoWebtoonUrls() {
-		return new CrawlingKakaoWebtoonUrls();
+	public CrawlingKakaoWebtoonInfos crawlingKakaoWebtoonUrls() {
+		return new CrawlingKakaoWebtoonInfos(webtoonRepository);
 	}
 	
 	@Bean
-	public CrawlingNaverWebtoonUrls crawlingNaverWebtoonUrls() {
-		return new CrawlingNaverWebtoonUrls();
+	public CrawlingNaverWebtoonInfos crawlingNaverWebtoonUrls() {
+		return new CrawlingNaverWebtoonInfos(webtoonRepository);
 	}
 
 }
