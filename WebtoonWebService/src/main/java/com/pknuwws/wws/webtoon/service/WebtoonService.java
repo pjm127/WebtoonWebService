@@ -8,6 +8,11 @@ import com.pknuwws.wws.webtoon.repository.CommentRepository;
 import com.pknuwws.wws.webtoon.repository.WebtoonRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,19 +28,23 @@ public class WebtoonService {
     private final WebtoonRepository webtoonRepository;
 
     //웹툰 전체 목록
-    public List<WebtoonListRequest> getAllWebtoon() {
-        List<Webtoon> allWebtoons = webtoonRepository.findAll();
+    public List<WebtoonListRequest> getAllWebtoon(int page) {
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(Sort.Order.desc("likeProportion")));
+        Page<Webtoon> allWebtoons = webtoonRepository.findAll(pageable);
+
         List<WebtoonListRequest> webtoonListRequests = new ArrayList<>();
 
         for (Webtoon webtoon : allWebtoons) {
             WebtoonListRequest build = WebtoonListRequest.builder()
                     .title(webtoon.getTitle())
-                    .link(webtoon.getLink())
-                    .thumbnail(webtoon.getThumbnail())
-                    .love(webtoon.getLove())
-                    .genre(webtoon.getGenre())
-                    .firstEpisodeDay(webtoon.getFirstEpisodeDay())
-                    .publishingDay(webtoon.getPublishingDay())
+                .url(webtoon.getUrl())
+                .thumbnailUrl(webtoon.getThumbnailUrl())
+                .genre(webtoon.getGenre())
+                .likeCount(webtoon.getLikeCount())
+                .firstDate(webtoon.getFirstDate())
+                .day(webtoon.getDay())
+                .platform(webtoon.getPlatform())
+                .likeProportion(webtoon.getLikeProportion())
                     .build();
 
             webtoonListRequests.add(build);
@@ -56,16 +65,17 @@ public class WebtoonService {
         Webtoon webtoon = webtoonRepository.findById(id).orElseThrow(() -> new CustomException(NOT_FOUND_WEBTOON));
         return WebtoonListRequest.builder()
                 .title(webtoon.getTitle())
-                .link(webtoon.getLink())
-                .thumbnail(webtoon.getThumbnail())
-                .love(webtoon.getLove())
-                .genre(webtoon.getGenre())
-                .firstEpisodeDay(webtoon.getFirstEpisodeDay())
-                .publishingDay(webtoon.getPublishingDay())
+            .url(webtoon.getUrl())
+            .thumbnailUrl(webtoon.getThumbnailUrl())
+            .genre(webtoon.getGenre())
+            .likeCount(webtoon.getLikeCount())
+            .firstDate(webtoon.getFirstDate())
+            .day(webtoon.getDay())
+            .platform(webtoon.getPlatform())
                 .build();
     }
 
-    //댓글용 웹툰 선택
+    //웹툰 한개 선택 댓글용
     public Webtoon getWebtoonForComment(Long id){
         return webtoonRepository.findById(id).orElseThrow(() -> new CustomException(NOT_FOUND_WEBTOON));
     }

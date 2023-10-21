@@ -37,7 +37,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(
                         authorizeHttpRequests -> authorizeHttpRequests.requestMatchers(org.springframework.web.cors.CorsUtils::isPreFlightRequest)
                                 .permitAll()
-                                .requestMatchers("/api/v1/user/**")
+                                .requestMatchers("/api/v1/**")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()

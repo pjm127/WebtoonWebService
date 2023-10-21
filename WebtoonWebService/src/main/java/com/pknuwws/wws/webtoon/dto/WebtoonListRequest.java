@@ -1,6 +1,6 @@
 package com.pknuwws.wws.webtoon.dto;
 
-import com.pknuwws.wws.webtoon.domain.PublishingDay;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,10 +13,14 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class WebtoonListRequest {
     private String title; //제목
-    private String link; //링크
-    private String thumbnail; //썸네일
-    private Integer love; //좋아요
+    private String url; //링크
+    private String thumbnailUrl; //썸네일 링크
     private String genre; //장르
-    private LocalDate firstEpisodeDay; //첫회 연재일
-    private PublishingDay publishingDay; //연재 요일
+    private Integer likeCount; //좋아요
+    private Integer overallLikeCount; //전체 좋아요
+    private Float likeProportion; // likeCount / overallLikeCount
+    private String firstDate; //첫 연재일
+    private String day; // 연재 요일
+    private String platform; //플랫폼
+
 }
