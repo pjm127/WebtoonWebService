@@ -1,4 +1,4 @@
-package com.pknuwws.wws;
+package com.pknuwws.wws.crawling;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,15 +13,15 @@ import org.openqa.selenium.edge.EdgeOptions;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public abstract class CrawlingWebtoonInfos {
+public abstract class CrawlingWebtoonInfos  {
 	
 	protected final WebtoonRepository webtoonRepository;
 	
 	protected WebDriver driver;
 	protected EdgeOptions options;
 	protected List<String> tabs;
-	protected static final String[] DAYS = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
-//	protected static final String[] DAYS = {"mon"};
+//	protected static final String[] DAYS = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
+	protected static final String[] DAYS = {"mon"};
 	protected static final String[] DAYS_KOREAN = {"월", "화", "수", "목", "금", "토", "일"};
 
 	public void process() {
@@ -50,6 +50,7 @@ public abstract class CrawlingWebtoonInfos {
 				webtoons.add(crawlWebtoons(url));
 				driver.close();
 				switchToTab(-1);
+				break;
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -73,7 +74,7 @@ public abstract class CrawlingWebtoonInfos {
 			
 			System.out.println("제목: " + webtoon.getTitle());
 			System.out.println("링크: " + webtoon.getUrl());
-			System.out.println("연재 요일: " + webtoon.getDay());
+			System.out.println("연재 요일: " + webtoon.getDayOfWeek());
 			System.out.println("장르: " + webtoon.getGenre());
 			System.out.println("플랫폼: " + webtoon.getPlatform());
 			System.out.println("썸네일: " + webtoon.getThumbnailUrl());
@@ -83,6 +84,26 @@ public abstract class CrawlingWebtoonInfos {
 			System.out.println("첫 화 날짜: " + webtoon.getFirstDate());
 			System.out.println("============================================================================");
 			
+			Webtoon original = webtoonRepository.findByTitle(webtoon.getTitle());
+			// 해당 제목의 웹툰이 db에 있는 경우
+			if (original != null) {
+				System.out.println("저장돼 있는 웹툰");
+				// db 정보 업데이트
+				original.setTitle(webtoon.getTitle());
+				original.setUrl(webtoon.getUrl());
+				original.setDayOfWeek(webtoon.getDayOfWeek());
+				original.setGenre(webtoon.getGenre());
+				original.setPlatform(webtoon.getPlatform());
+				original.setThumbnailUrl(webtoon.getThumbnailUrl());
+				original.setLikeCount(webtoon.getLikeCount());
+				original.setOverallLikeCount(webtoon.getOverallLikeCount());
+				original.setLikeProportion(webtoon.getLikeProportion());
+				original.setFirstDate(webtoon.getFirstDate());
+				webtoonRepository.save(original);
+				System.out.println("저장소에 갱신 완료");
+				continue;
+			}
+			// 해당 제목의 웹툰이 db에 없는 경우 새로운 정보 저장
 			webtoonRepository.save(webtoon);
 			System.out.println("저장소에 저장 완료");
 		}

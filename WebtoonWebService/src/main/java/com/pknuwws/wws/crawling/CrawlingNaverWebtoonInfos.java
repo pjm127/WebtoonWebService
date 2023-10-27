@@ -1,4 +1,4 @@
-package com.pknuwws.wws;
+package com.pknuwws.wws.crawling;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -14,12 +14,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 
+	private String BASE_URL = "https://comic.naver.com/webtoon?tab=";
+	private String[] GENRES = new String[] {"로맨스", "액션", "판타지", "사극", "무협", "스포츠", "스릴러", "일상"};
+
 	public CrawlingNaverWebtoonInfos(WebtoonRepository webtoonRepository) {
 		super(webtoonRepository);
 	}
 
-	private String BASE_URL = "https://comic.naver.com/webtoon?tab=";
-	private String[] GENRES = new String[] {"로맨스", "액션", "판타지", "사극", "무협", "스포츠", "스릴러", "일상"};
+	@Override
+	public void process() {
+		super.process();
+	}
 
 	@Override
 	protected List<String> crawlWebtoonUrlsOfDay(String day) {
@@ -90,7 +95,7 @@ public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 				days += d + ",";
 			}
 		}
-		webtoon.setDay(days);
+		webtoon.setDayOfWeek(days);
 //		System.out.println();
 
 		// 태그 (장르)

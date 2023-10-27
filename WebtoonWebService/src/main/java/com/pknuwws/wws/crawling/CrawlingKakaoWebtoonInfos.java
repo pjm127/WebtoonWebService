@@ -1,4 +1,4 @@
-package com.pknuwws.wws;
+package com.pknuwws.wws.crawling;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -13,12 +13,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CrawlingKakaoWebtoonInfos extends CrawlingWebtoonInfos {
 
+	private String BASE_URL = "https://webtoon.kakao.com/original-webtoon?tab=";
+	private String[] GENRES = new String[] {"로맨스", "액션", "판타지", "사극", "무협", "스포츠", "미스테리", "일상"};
+	
 	public CrawlingKakaoWebtoonInfos(WebtoonRepository webtoonRepository) {
 		super(webtoonRepository);
 	}
 
-	private String BASE_URL = "https://comic.naver.com/webtoon?tab=";
-	private String[] GENRES = new String[] {"로맨스", "액션", "판타지", "사극", "무협", "스포츠", "스릴러", "일상"};
+	@Override
+	public void process() {
+		super.process();
+	}
 
 	@Override
 	protected List<String> crawlWebtoonUrlsOfDay(String day) {
@@ -129,7 +134,7 @@ public class CrawlingKakaoWebtoonInfos extends CrawlingWebtoonInfos {
 //				System.out.print(d);
 			}
 		}
-		webtoon.setDay(days);
+		webtoon.setDayOfWeek(days);
 //		System.out.println();
 
 		// 플랫폼은 카카오
