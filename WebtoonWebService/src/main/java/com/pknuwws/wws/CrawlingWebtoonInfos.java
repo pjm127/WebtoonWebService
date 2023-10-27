@@ -15,13 +15,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public abstract class CrawlingWebtoonInfos {
 	
+	// TODO
+	// Repository 에러 뜨는 거 해결해야 함
 	protected final WebtoonRepository webtoonRepository;
 	
 	protected WebDriver driver;
 	protected EdgeOptions options;
 	protected List<String> tabs;
-	protected static final String[] DAYS = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
-//	protected static final String[] DAYS = {"mon"};
+//	protected static final String[] DAYS = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
+	protected static final String[] DAYS = {"mon"};
 	protected static final String[] DAYS_KOREAN = {"월", "화", "수", "목", "금", "토", "일"};
 
 	public void process() {
@@ -73,7 +75,7 @@ public abstract class CrawlingWebtoonInfos {
 			
 			System.out.println("제목: " + webtoon.getTitle());
 			System.out.println("링크: " + webtoon.getUrl());
-			System.out.println("연재 요일: " + webtoon.getDay());
+			System.out.println("연재 요일: " + webtoon.getDayOfWeek());
 			System.out.println("장르: " + webtoon.getGenre());
 			System.out.println("플랫폼: " + webtoon.getPlatform());
 			System.out.println("썸네일: " + webtoon.getThumbnailUrl());

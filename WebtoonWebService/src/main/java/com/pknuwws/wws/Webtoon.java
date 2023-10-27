@@ -31,7 +31,7 @@ public class Webtoon {
 	private Integer overallLikeCount;
 	private Float likeProportion; // likeCount / overallLikeCount
 	private LocalDate firstDate;
-	private String day; // 연재 요일
+	private String dayOfWeek; // 연재 요일
 	private String platform;
 
 }

@@ -2,12 +2,14 @@ package com.pknuwws.wws;
 
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
+@ComponentScan(basePackages = "com.pknuwws.wws")
 public class AppConfig {
 	
 	private final WebtoonRepository webtoonRepository;

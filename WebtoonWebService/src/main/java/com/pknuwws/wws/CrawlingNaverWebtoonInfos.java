@@ -90,7 +90,7 @@ public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 				days += d + ",";
 			}
 		}
-		webtoon.setDay(days);
+		webtoon.setDayOfWeek(days);
 //		System.out.println();
 
 		// 태그 (장르)

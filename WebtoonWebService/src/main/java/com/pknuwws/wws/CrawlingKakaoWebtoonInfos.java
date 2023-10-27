@@ -17,7 +17,7 @@ public class CrawlingKakaoWebtoonInfos extends CrawlingWebtoonInfos {
 		super(webtoonRepository);
 	}
 
-	private String BASE_URL = "https://comic.naver.com/webtoon?tab=";
+	private String BASE_URL = "https://webtoon.kakao.com/original-webtoon?tab=";
 	private String[] GENRES = new String[] {"로맨스", "액션", "판타지", "사극", "무협", "스포츠", "스릴러", "일상"};
 
 	@Override
@@ -129,7 +129,7 @@ public class CrawlingKakaoWebtoonInfos extends CrawlingWebtoonInfos {
 //				System.out.print(d);
 			}
 		}
-		webtoon.setDay(days);
+		webtoon.setDayOfWeek(days);
 //		System.out.println();
 
 		// 플랫폼은 카카오
