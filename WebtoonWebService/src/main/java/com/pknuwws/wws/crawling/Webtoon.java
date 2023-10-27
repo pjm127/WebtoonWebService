@@ -1,5 +1,5 @@
 
-package com.pknuwws.wws;
+package com.pknuwws.wws.crawling;
 
 import java.time.LocalDate;
 
