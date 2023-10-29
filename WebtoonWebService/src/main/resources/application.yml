@@ -1,0 +1,27 @@
+server:
+  port: 9001
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/webtoon?serverTimezone=Asia/Seoul
+    username: pjm
+    password: jmjm1102
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+#        format_sql: true
+#        show_sql: true
+  logging.level:
+    org.hibernate.SQL: debug
+
+JWT:
+  secret_key: fbcb542e08e7feed1c9ebc3740ee092f43304e0b8a666d63bc36fbe785ad447a
+  expiration_time: 14400000
+  header: Authorization
+  prefix: Bearer
+  token:
+    access-expiration-time: 10000
+    refresh-expiration-time: 2592000000
