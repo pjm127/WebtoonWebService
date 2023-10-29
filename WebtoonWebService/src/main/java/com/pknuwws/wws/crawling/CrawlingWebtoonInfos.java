@@ -10,6 +10,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 
+import com.pknuwws.wws.webtoon.domain.Webtoon;
+import com.pknuwws.wws.webtoon.repository.WebtoonRepository;
+
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

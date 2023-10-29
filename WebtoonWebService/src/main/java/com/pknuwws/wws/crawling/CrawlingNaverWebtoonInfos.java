@@ -12,10 +12,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.pknuwws.wws.webtoon.domain.Webtoon;
+import com.pknuwws.wws.webtoon.repository.WebtoonRepository;
+
 public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 
 	private String BASE_URL = "https://comic.naver.com/webtoon?tab=";
-	private String[] GENRES = new String[] {"로맨스", "액션", "판타지", "사극", "무협", "스포츠", "스릴러", "일상"};
+	private String[] GENRES = new String[] {"로맨스", "액션", "판타지", "무협", "스포츠", "스릴러", "일상"};
 
 	public CrawlingNaverWebtoonInfos(WebtoonRepository webtoonRepository) {
 		super(webtoonRepository);
@@ -102,9 +105,9 @@ public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 		// GENRES에 지정된 키워드가 태그에 있으면 표시
 		List<WebElement> tags = driver.findElements(By.className("TagGroup__tag--xu0OH"));
 		String genres = "";
-		for (int i = 0; i < tags.size(); i++) {
+		for (WebElement tag : tags) {
 			for (String genre : GENRES) {
-				if (tags.get(i).getText().contains(genre)) {
+				if (tag.getText().contains(genre)) {
 					if (!genres.contains(genre)) {
 						genres += genre + ",";
 					}

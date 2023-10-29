@@ -11,10 +11,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.pknuwws.wws.webtoon.domain.Webtoon;
+import com.pknuwws.wws.webtoon.repository.WebtoonRepository;
+
 public class CrawlingKakaoWebtoonInfos extends CrawlingWebtoonInfos {
 
 	private String BASE_URL = "https://webtoon.kakao.com/original-webtoon?tab=";
-	private String[] GENRES = new String[] {"로맨스", "액션", "판타지", "사극", "무협", "스포츠", "미스테리", "일상"};
+	private String[] GENRES = new String[] {"로맨스", "액션", "판타지", "무협", "스포츠", "스릴러", "일상"};
 	
 	public CrawlingKakaoWebtoonInfos(WebtoonRepository webtoonRepository) {
 		super(webtoonRepository);
