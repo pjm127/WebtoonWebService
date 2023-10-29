@@ -1,12 +1,11 @@
-package com.pknuwws.wws.webtoon.controller;
+package com.pknuwws.wws.webtoon.presentation;
 
 import com.pknuwws.wws.webtoon.dto.CommentListRequest;
 import com.pknuwws.wws.webtoon.dto.CommentRequest;
 import com.pknuwws.wws.webtoon.domain.Comment;
 import com.pknuwws.wws.webtoon.domain.Webtoon;
-import com.pknuwws.wws.webtoon.dto.WebtoonListRequest;
-import com.pknuwws.wws.webtoon.service.CommentService;
-import com.pknuwws.wws.webtoon.service.WebtoonService;
+import com.pknuwws.wws.webtoon.application.CommentService;
+import com.pknuwws.wws.webtoon.application.WebtoonService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/api/v1/comment")

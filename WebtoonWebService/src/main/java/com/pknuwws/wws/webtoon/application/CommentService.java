@@ -1,4 +1,4 @@
-package com.pknuwws.wws.webtoon.service;
+package com.pknuwws.wws.webtoon.application;
 
 import com.pknuwws.wws.exception.CustomException;
 import com.pknuwws.wws.webtoon.dto.CommentListRequest;
