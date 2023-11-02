@@ -1,0 +1,21 @@
+
+import React from 'react'
+import CircularSector from './CircularSector'
+import { getMainCircleThumnail } from '../service/webtoonInfo'
+
+const webtoonPageUrl =  [
+    '/search',
+    '/new',
+    '/rank',
+    '/jenre',
+    '/recommend',
+]
+
+export default async function MainCircle({sectorNum} : {sectorNum : number}) {
+
+    const thumnails = await getMainCircleThumnail()
+
+    return (
+        <CircularSector sectorNum={sectorNum} thumnails={thumnails} pageUrl = {webtoonPageUrl}></CircularSector>
+    )
+}
