@@ -16,6 +16,6 @@ export default async function MainCircle({sectorNum} : {sectorNum : number}) {
     const thumnails = await getMainCircleThumnail()
 
     return (
-        <CircularSector sectorNum={sectorNum} thumnails={thumnails} pageUrl = {webtoonPageUrl}></CircularSector>
+        <CircularSector sectorNum={sectorNum+1} thumnails={thumnails} pageUrl = {webtoonPageUrl}></CircularSector>
     )
 }
