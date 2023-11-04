@@ -5,6 +5,7 @@ import com.pknuwws.wws.webtoon.domain.Webtoon;
 import com.pknuwws.wws.webtoon.dto.WebtoonListRequest;
 import com.pknuwws.wws.webtoon.repository.WebtoonRepository;
 
+import java.time.LocalDate;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ public class WebtoonService {
     private final WebtoonRepository webtoonRepository;
 
     //웹툰 전체 목록
-    public List<WebtoonListRequest> getAllWebtoon(int page) {
+    public List<WebtoonListRequest> getAllWebtoonList(int page) {
         Pageable pageable = PageRequest.of(page, 10, Sort.by(Sort.Order.desc("likeProportion")));
         Page<Webtoon> allWebtoonList = webtoonRepository.findAll(pageable);
 
@@ -45,7 +46,7 @@ public class WebtoonService {
     }
 
    //장르별 웹툰 목록
-   public List<WebtoonListRequest> getGenreWebtoon(String genre,int page) {
+   public List<WebtoonListRequest> getGenreWebtoonList(String genre,int page) {
        Pageable pageable = PageRequest.of(page, 10, Sort.by(Sort.Order.desc("likeProportion")));
        Page<Webtoon> genreWebtoonList = webtoonRepository.findByGenre(genre, pageable);
 
@@ -63,6 +64,27 @@ public class WebtoonService {
                        .build())
                .collect(Collectors.toList());
    }
+
+    public List<WebtoonListRequest> getNewWebtoonList(int page) {
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(Sort.Order.desc("likeProportion")));
+        LocalDate localDate = LocalDate.now().minusMonths(3);
+
+        Page<Webtoon> newWebtoonList = webtoonRepository.findByFirstDate(localDate, pageable);
+
+        return newWebtoonList.stream()
+                .map(webtoon -> WebtoonListRequest.builder()
+                        .title(webtoon.getTitle())
+                        .url(webtoon.getUrl())
+                        .thumbnailUrl(webtoon.getThumbnailUrl())
+                        .genre(webtoon.getGenre())
+                        .likeCount(webtoon.getLikeCount())
+                        .firstDate(webtoon.getFirstDate())
+                        . dayOfWeek(webtoon.getDayOfWeek())
+                        .platform(webtoon.getPlatform())
+                        .likeProportion(webtoon.getLikeProportion())
+                        .build())
+                .collect(Collectors.toList());
+    }
 
 
 

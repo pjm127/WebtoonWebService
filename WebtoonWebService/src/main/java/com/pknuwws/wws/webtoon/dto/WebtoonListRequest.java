@@ -19,7 +19,7 @@ public class WebtoonListRequest {
     private Integer likeCount; //좋아요
     private Integer overallLikeCount; //전체 좋아요
     private Float likeProportion; // likeCount / overallLikeCount
-    private String firstDate; //첫 연재일
+    private LocalDate firstDate; //첫 연재일
     private String  dayOfWeek; // 연재 요일
     private String platform; //플랫폼
 

@@ -28,7 +28,7 @@ public class WebtoonController {
     private ResponseEntity<List<WebtoonListRequest>> getAllWebtoon(
         @PageableDefault int page)
     {
-        return ResponseEntity.ok(webtoonService.getAllWebtoon(page));
+        return ResponseEntity.ok(webtoonService.getAllWebtoonList(page));
     }
 
     //웹툰 한개 선택
@@ -43,6 +43,14 @@ public class WebtoonController {
         @RequestParam("genre") String genre,
         @PageableDefault @Parameter(name="page") int page)
     {
-        return ResponseEntity.ok(webtoonService.getGenreWebtoon(genre, page));
+        return ResponseEntity.ok(webtoonService.getGenreWebtoonList(genre, page));
+    }
+
+    //5. 신작 웹툰 확인
+    @GetMapping("/new-list")
+    private ResponseEntity<List<WebtoonListRequest>> getNewWebtoon(
+        @PageableDefault @Parameter(name="page") int page)
+    {
+        return ResponseEntity.ok(webtoonService.getNewWebtoonList(page));
     }
 }
