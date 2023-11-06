@@ -12,16 +12,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Comment {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String userId;
-	private String comment;
-	@ManyToOne
-	private Webtoon webtoon;
+    private String userId;
+    private String comment;
+    @ManyToOne
+    private Webtoon webtoon;
 
-	public void update(String comment) {
-		this.comment = comment;
-	}
+    public void update(String comment) {
+        this.comment = comment;
+    }
 }

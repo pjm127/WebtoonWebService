@@ -72,8 +72,8 @@ public abstract class CrawlingWebtoonInfos  {
 		System.out.println("전체 웹툰 수: " + webtoons.size());
 		System.out.println("============================================================================");
 		for (Webtoon webtoon : webtoons) {
-			webtoon.setLikeProportion((float) (webtoon.getLikeCount() / (float) overallLikeCount));
-			webtoon.setOverallLikeCount(overallLikeCount);
+			webtoon.updateLikeProportion((float) (webtoon.getLikeCount() / (float) overallLikeCount));
+			webtoon.updateOverallLikeCount(overallLikeCount);
 			
 			System.out.println("제목: " + webtoon.getTitle());
 			System.out.println("링크: " + webtoon.getUrl());
@@ -92,16 +92,16 @@ public abstract class CrawlingWebtoonInfos  {
 			if (original != null) {
 				System.out.println("저장돼 있는 웹툰");
 				// db 정보 업데이트
-				original.setTitle(webtoon.getTitle());
-				original.setUrl(webtoon.getUrl());
-				original.setDayOfWeek(webtoon.getDayOfWeek());
-				original.setGenre(webtoon.getGenre());
-				original.setPlatform(webtoon.getPlatform());
-				original.setThumbnailUrl(webtoon.getThumbnailUrl());
-				original.setLikeCount(webtoon.getLikeCount());
-				original.setOverallLikeCount(webtoon.getOverallLikeCount());
-				original.setLikeProportion(webtoon.getLikeProportion());
-				original.setFirstDate(webtoon.getFirstDate());
+				original.updateTitle(webtoon.getTitle());
+				original.updateUrl(webtoon.getUrl());
+				original.updateDayOfWeek(webtoon.getDayOfWeek());
+				original.updateGenre(webtoon.getGenre());
+				original.updatePlatform(webtoon.getPlatform());
+				original.updateThumbnailUrl(webtoon.getThumbnailUrl());
+				original.updateLikeCount(webtoon.getLikeCount());
+				original.updateOverallLikeCount(webtoon.getOverallLikeCount());
+				original.updateLikeProportion(webtoon.getLikeProportion());
+				original.updateFirstDate(webtoon.getFirstDate());
 				webtoonRepository.save(original);
 				System.out.println("저장소에 갱신 완료");
 				continue;
