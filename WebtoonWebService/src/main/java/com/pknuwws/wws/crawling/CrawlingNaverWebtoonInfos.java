@@ -12,10 +12,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.pknuwws.wws.webtoon.domain.Webtoon;
+import com.pknuwws.wws.webtoon.repository.WebtoonRepository;
+
 public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 
 	private String BASE_URL = "https://comic.naver.com/webtoon?tab=";
-	private String[] GENRES = new String[] {"로맨스", "액션", "판타지", "사극", "무협", "스포츠", "스릴러", "일상"};
+	private String[] GENRES = new String[] {"로맨스", "액션", "판타지", "무협", "스포츠", "스릴러", "일상"};
 
 	public CrawlingNaverWebtoonInfos(WebtoonRepository webtoonRepository) {
 		super(webtoonRepository);
@@ -63,7 +66,7 @@ public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 	 */
 	@Override
 	protected Webtoon crawlWebtoons(String url) {
-		Webtoon webtoon = new Webtoon();
+//		Webtoon webtoon = new Webtoon();
 		driver.get(url);
 
 		// 썸네일 뜰 때까지 기다림
@@ -74,15 +77,15 @@ public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 
 		// 제목
 		String title = driver.findElement(By.className("EpisodeListInfo__title--mYLjC")).getText();
-		webtoon.setTitle(title);
+//		webtoon.setTitle(title);
 //		System.out.println("제목: " + title);
 
 		// 링크
-		webtoon.setUrl(url);
+//		webtoon.setUrl(url);
 
 		// 썸네일
 		String thumbnail = driver.findElement(By.className("Poster__image--d9XTI")).getAttribute("src");
-		webtoon.setThumbnailUrl(thumbnail);
+//		webtoon.setThumbnailUrl(thumbnail);
 //		System.out.println("썸네일: " + thumbnail);
 
 		// 요일
@@ -95,23 +98,23 @@ public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 				days += d + ",";
 			}
 		}
-		webtoon.setDayOfWeek(days);
+//		webtoon.setDayOfWeek(days);
 //		System.out.println();
 
 		// 태그 (장르)
 		// GENRES에 지정된 키워드가 태그에 있으면 표시
 		List<WebElement> tags = driver.findElements(By.className("TagGroup__tag--xu0OH"));
 		String genres = "";
-		for (int i = 0; i < tags.size(); i++) {
+		for (WebElement tag : tags) {
 			for (String genre : GENRES) {
-				if (tags.get(i).getText().contains(genre)) {
+				if (tag.getText().contains(genre)) {
 					if (!genres.contains(genre)) {
 						genres += genre + ",";
 					}
 				}
 			}
 		}
-		webtoon.setGenre(genres);
+//		webtoon.setGenre(genres);
 
 		// 최신 화에서 좋아요 가져오기
 		// 최신 화는 tab 새로 열기
@@ -125,7 +128,7 @@ public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 				ExpectedConditions.presenceOfElementLocated(By.cssSelector(".u_cnt._count"))
 				);
 		String likeCount = driver.findElement(By.cssSelector(".u_cnt._count")).getText();
-		webtoon.setLikeCount(Integer.parseInt(likeCount.replaceAll(",", "")));
+//		webtoon.setLikeCount(Integer.parseInt(likeCount.replaceAll(",", "")));
 //		System.out.println("최신화 좋아요: " + likeCount);
 		driver.close();
 		switchToTab(1);
@@ -142,20 +145,31 @@ public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 		}
 		String firstDate = "20" + driver.findElement(By.className("date")).getText();
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-		webtoon.setFirstDate(LocalDate.parse(firstDate, dateTimeFormatter));
+//		webtoon.setFirstDate(LocalDate.parse(firstDate, dateTimeFormatter));
 //		System.out.println(firstDate);
 
 		// 플랫폼은 네이버
-		webtoon.setPlatform("Naver");
+//		webtoon.setPlatform("Naver");
+		
+		return Webtoon.builder()
+				.title(title)
+				.url(url)
+				.thumbnailUrl(thumbnail)
+				.genre(genres)
+				.likeCount(Integer.parseInt(likeCount))
+				.firstDate(LocalDate.parse(firstDate, dateTimeFormatter))
+				.dayOfWeek(days)
+				.platform("Naver")
+				.build();
 
-		return webtoon;
+//		return webtoon;
 	}
 
 	@Override
 	protected void login() {
 		driver.get("https://nid.naver.com/nidlogin.login?mode=form&url=https://www.naver.com/");
 		try {
-			Thread.sleep(25000);
+			Thread.sleep(30000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

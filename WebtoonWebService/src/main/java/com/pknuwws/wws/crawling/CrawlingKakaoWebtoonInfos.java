@@ -11,10 +11,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.pknuwws.wws.webtoon.domain.Webtoon;
+import com.pknuwws.wws.webtoon.repository.WebtoonRepository;
+
 public class CrawlingKakaoWebtoonInfos extends CrawlingWebtoonInfos {
 
 	private String BASE_URL = "https://webtoon.kakao.com/original-webtoon?tab=";
-	private String[] GENRES = new String[] {"로맨스", "액션", "판타지", "사극", "무협", "스포츠", "미스테리", "일상"};
+	private String[] GENRES = new String[] {"로맨스", "액션", "판타지", "무협", "스포츠", "스릴러", "일상"};
 	
 	public CrawlingKakaoWebtoonInfos(WebtoonRepository webtoonRepository) {
 		super(webtoonRepository);
@@ -66,7 +69,14 @@ public class CrawlingKakaoWebtoonInfos extends CrawlingWebtoonInfos {
 	 */
 	@Override
 	protected Webtoon crawlWebtoons(String url) {
-		Webtoon webtoon = new Webtoon();
+		// 대량의 요청 발생 시 서버에서 차단되는 것을 막기 위해 기다림
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+//		Webtoon webtoon = new Webtoon();
 		driver.get(url);
 
 		// 썸네일 뜰 때까지 기다림
@@ -77,15 +87,15 @@ public class CrawlingKakaoWebtoonInfos extends CrawlingWebtoonInfos {
 
 		// 제목
 		String title = driver.findElement(By.cssSelector(".whitespace-pre-wrap.break-all.break-words.support-break-word.overflow-hidden.text-ellipsis.s22-semibold-white.text-center.leading-26")).getText();
-		webtoon.setTitle(title);
+//		webtoon.setTitle(title);
 //		System.out.println("제목: " + title);
 
 		// 링크
-		webtoon.setUrl(url);
+//		webtoon.setUrl(url);
 
 		// 썸네일
 		String thumbnail = driver.findElement(By.cssSelector(".flex.w-full.h-full")).findElement(By.tagName("img")).getAttribute("src");
-		webtoon.setThumbnailUrl(thumbnail);
+//		webtoon.setThumbnailUrl(thumbnail);
 //		System.out.println("썸네일: " + thumbnail);
 
 		// 장르
@@ -101,7 +111,7 @@ public class CrawlingKakaoWebtoonInfos extends CrawlingWebtoonInfos {
 				}
 			}
 		}
-		webtoon.setGenre(genres);
+//		webtoon.setGenre(genres);
 
 		// 웹툰 좋아요 가져오기
 		String likeCount = items.get(2).getText();
@@ -112,14 +122,14 @@ public class CrawlingKakaoWebtoonInfos extends CrawlingWebtoonInfos {
 			likeCount = likeCount.replaceAll("[,만]", ""); // 맨 끝의 "만" 제거
 			likeCount = Integer.toString((int) (Double.parseDouble(likeCount) * 10_000));
 		}
-		webtoon.setLikeCount(Integer.parseInt(likeCount));
+//		webtoon.setLikeCount(Integer.parseInt(likeCount));
 //		System.out.println("likeCount: " + likeCount);
 
 		// 첫 화 날짜 가져오기
 		List<WebElement> dates = driver.findElements(By.cssSelector(".whitespace-pre-wrap.break-all.break-words.support-break-word.overflow-hidden.text-ellipsis.leading-14.opacity-50.s11-regular-white"));
 		String firstDate = "20" + dates.get(dates.size() - 1).getText();
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-		webtoon.setFirstDate(LocalDate.parse(firstDate, dateTimeFormatter));
+//		webtoon.setFirstDate(LocalDate.parse(firstDate, dateTimeFormatter));
 //		System.out.println(firstDate);
 
 		// 요일
@@ -134,13 +144,24 @@ public class CrawlingKakaoWebtoonInfos extends CrawlingWebtoonInfos {
 //				System.out.print(d);
 			}
 		}
-		webtoon.setDayOfWeek(days);
+//		webtoon.setDayOfWeek(days);
 //		System.out.println();
 
 		// 플랫폼은 카카오
-		webtoon.setPlatform("Kakao");
-
-		return webtoon;
+//		webtoon.setPlatform("Kakao");
+		
+		return Webtoon.builder()
+				.title(title)
+				.url(url)
+				.thumbnailUrl(thumbnail)
+				.genre(genres)
+				.likeCount(Integer.parseInt(likeCount))
+				.firstDate(LocalDate.parse(firstDate, dateTimeFormatter))
+				.dayOfWeek(days)
+				.platform("Kakao")
+				.build();
+		
+//		return webtoon;
 	}
 
 	@Override
@@ -151,7 +172,7 @@ public class CrawlingKakaoWebtoonInfos extends CrawlingWebtoonInfos {
 		element.click();
 
 		try {
-			Thread.sleep(20000);
+			Thread.sleep(30000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
