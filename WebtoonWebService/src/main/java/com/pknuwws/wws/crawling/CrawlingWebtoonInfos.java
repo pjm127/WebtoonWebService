@@ -23,8 +23,8 @@ public abstract class CrawlingWebtoonInfos  {
 	protected WebDriver driver;
 	protected EdgeOptions options;
 	protected List<String> tabs;
-//	protected static final String[] DAYS = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
-	protected static final String[] DAYS = {"mon"};
+	protected static final String[] DAYS = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
+//	protected static final String[] DAYS = {"mon"};
 	protected static final String[] DAYS_KOREAN = {"월", "화", "수", "목", "금", "토", "일"};
 
 	public void process() {
@@ -53,7 +53,6 @@ public abstract class CrawlingWebtoonInfos  {
 				webtoons.add(crawlWebtoons(url));
 				driver.close();
 				switchToTab(-1);
-				break;
 			}
 		} catch(Exception e) {
 			e.printStackTrace();

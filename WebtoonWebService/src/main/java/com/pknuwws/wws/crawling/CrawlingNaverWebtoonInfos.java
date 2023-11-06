@@ -169,7 +169,7 @@ public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 	protected void login() {
 		driver.get("https://nid.naver.com/nidlogin.login?mode=form&url=https://www.naver.com/");
 		try {
-			Thread.sleep(25000);
+			Thread.sleep(30000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

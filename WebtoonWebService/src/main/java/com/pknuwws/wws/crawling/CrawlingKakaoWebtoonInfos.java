@@ -69,6 +69,13 @@ public class CrawlingKakaoWebtoonInfos extends CrawlingWebtoonInfos {
 	 */
 	@Override
 	protected Webtoon crawlWebtoons(String url) {
+		// 대량의 요청 발생 시 서버에서 차단되는 것을 막기 위해 기다림
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 //		Webtoon webtoon = new Webtoon();
 		driver.get(url);
 
@@ -165,7 +172,7 @@ public class CrawlingKakaoWebtoonInfos extends CrawlingWebtoonInfos {
 		element.click();
 
 		try {
-			Thread.sleep(20000);
+			Thread.sleep(30000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
