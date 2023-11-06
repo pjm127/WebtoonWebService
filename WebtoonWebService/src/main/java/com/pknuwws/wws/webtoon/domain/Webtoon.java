@@ -28,8 +28,48 @@ public class Webtoon {
     private Integer overallLikeCount; //전체 좋아요
     private Float likeProportion; // likeCount / overallLikeCount
     private LocalDate firstDate; //첫 연재일
-    private String  dayOfWeek; // 연재 요일
+    private String dayOfWeek; // 연재 요일
     private String platform; //플랫폼
+
+    public void updateTitle(String title) {
+        this.title = title;
+    }
+
+    public void updateUrl(String url) {
+        this.url = url;
+    }
+
+    public void updateThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
+    public void updateGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public void updateLikeCount(Integer likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public void updateOverallLikeCount(Integer overallLikeCount) {
+        this.overallLikeCount = overallLikeCount;
+    }
+
+    public void updateLikeProportion(Float likeProportion) {
+        this.likeProportion = likeProportion;
+    }
+
+    public void updateFirstDate(LocalDate firstDate) {
+        this.firstDate = firstDate;
+    }
+
+    public void updateDayOfWeek(String dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
+    }
+
+    public void updatePlatform(String platform) {
+        this.platform = platform;
+    }
 
 
 
