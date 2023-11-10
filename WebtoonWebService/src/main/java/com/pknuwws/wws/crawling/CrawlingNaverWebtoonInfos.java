@@ -156,7 +156,7 @@ public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 				.url(url)
 				.thumbnailUrl(thumbnail)
 				.genre(genres)
-				.likeCount(Integer.parseInt(likeCount))
+				.likeCount(Integer.parseInt(likeCount.replaceAll(",", "")))
 				.firstDate(LocalDate.parse(firstDate, dateTimeFormatter))
 				.dayOfWeek(days)
 				.platform("Naver")
