@@ -15,7 +15,7 @@ export default function BackgroundPage() {
                   autoPlay={true}
                   muted={true}
                   loop={true}
-                  style={{ width: "100%", height: "100%" }}
+                  style={{ width: "100%", height: "200vh" }}
                   src={require("../../../public/videos/webBackground.mp4")}
                   className = "mb-[-1] object-fill"
               />

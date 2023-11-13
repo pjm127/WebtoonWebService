@@ -34,8 +34,6 @@ export default function CircularSector({sectorNum, thumnails, pageUrl} : Props) 
     let [sectorOpacityState, setSectorOpacityState] = useState<boolean[]>(sectorOpacity);
     let [sectorSkewState, setSectorSkewsState] = useState<boolean[]>(sectorSkew)
 
-    console.log(thumnails);
-
     // function makeCircle(){
     //     let arr = [];
 

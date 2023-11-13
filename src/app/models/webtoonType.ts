@@ -1,8 +1,9 @@
 export type Webtoon = {
+    id : number;
     title : string;
     url : string;
-    thumbnail : string;
-    genre : string;
+    thumnail : string;
+    genre : string[];
     likeCount : number;
     firstDate : string;
     dayOfWeek : string;

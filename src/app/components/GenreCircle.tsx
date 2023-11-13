@@ -3,13 +3,13 @@ import CircularSector from './CircularSector'
 import { getGenreCircleThumnail } from '../service/webtoonInfo'
 
 const webtoonPageUrl = [
-    '/jenre/action',
-    '/jenre/fantasy',
-    '/jenre/wuxia',
-    '/jenre/daily',
-    '/jenre/sports',
-    '/jenre/romance',
-    '/jenre/mystery',
+    '/genre/action',
+    '/genre/fantasy',
+    '/genre/wuxia',
+    '/genre/daily',
+    '/genre/sports',
+    '/genre/romance',
+    '/genre/mystery',
 ]
 
 export default async function GenreCircle() {

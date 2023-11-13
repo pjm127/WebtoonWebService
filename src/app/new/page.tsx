@@ -1,7 +1,13 @@
 import React from 'react'
 
-export default function NewPage() {
+export default async function NewPage() {
+  
+
   return (
-    <div>new Page</div>
+    <div>
+      {
+
+      }
+    </div>
   )
 }

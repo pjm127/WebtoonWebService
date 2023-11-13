@@ -20,10 +20,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+        
         <body className={inter.className}>
           <Background></Background>
           <Navbar></Navbar>
             {children}
+          <div id = "modal"></div>
         </body>
     </html>
   )
