@@ -69,26 +69,35 @@ public class CrawlingKakaoWebtoonInfos extends CrawlingWebtoonInfos {
 	 */
 	@Override
 	protected Webtoon crawlWebtoons(String url) {
-		// 대량의 요청 발생 시 서버에서 차단되는 것을 막기 위해 기다림
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+//		Webtoon webtoon = new Webtoon();
+		while (true) {
+			driver.get(url);
+			if (!driver.getTitle().strip().equals("403")) {
+				break;
+			}
+			
+			try {
+				System.out.println("응답 코드 403으로 15분 대기");
+				Thread.sleep(15 * 60 * 1000);
+				System.out.println("대기 종료");
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		
-//		Webtoon webtoon = new Webtoon();
-		driver.get(url);
-
 		// 썸네일 뜰 때까지 기다림
 		WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		webDriverWait.until(
-				ExpectedConditions.presenceOfElementLocated(By.id("character-container"))
+				ExpectedConditions.presenceOfElementLocated(By.cssSelector(".flex.w-full.h-full"))
 				);
 
 		// 제목
 		String title = driver.findElement(By.cssSelector(".whitespace-pre-wrap.break-all.break-words.support-break-word.overflow-hidden.text-ellipsis.s22-semibold-white.text-center.leading-26")).getText();
 //		webtoon.setTitle(title);
 //		System.out.println("제목: " + title);
+		
+		// 작가
+		String author = driver.findElement(By.cssSelector(".whitespace-pre-wrap.break-all.break-words.support-break-word.overflow-hidden.text-ellipsis.s12-regular-white.mt-4.opacity-75.text-center.leading-14")).getText();
 
 		// 링크
 //		webtoon.setUrl(url);
@@ -136,6 +145,9 @@ public class CrawlingKakaoWebtoonInfos extends CrawlingWebtoonInfos {
 		WebElement infoItem = driver.findElement(By.cssSelector(".whitespace-pre-wrap.break-all.break-words.support-break-word.s14-bold-white.opacity-40"));
 		infoItem.click();
 //		System.out.print("연재 요일: ");
+		webDriverWait.until(
+				ExpectedConditions.presenceOfElementLocated(By.cssSelector(".whitespace-pre-wrap.break-all.break-words.support-break-word.s16-semibold-white.mb-11"))
+				);
 		String dayInfo = driver.findElement(By.cssSelector(".flex.flex-wrap.gap-4.mb-12")).getText();
 		String days = "";
 		for (String d : DAYS_KOREAN) {
@@ -152,6 +164,7 @@ public class CrawlingKakaoWebtoonInfos extends CrawlingWebtoonInfos {
 		
 		return Webtoon.builder()
 				.title(title)
+				.author(author)
 				.url(url)
 				.thumbnailUrl(thumbnail)
 				.genre(genres)

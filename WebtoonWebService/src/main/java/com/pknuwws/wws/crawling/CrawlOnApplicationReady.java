@@ -27,7 +27,7 @@ public class CrawlOnApplicationReady {
 		});
 		
 		naverWebtoonThread.start();
-//		kakaoWebtoonThread.start();
+		kakaoWebtoonThread.start();
 	}
 
 }

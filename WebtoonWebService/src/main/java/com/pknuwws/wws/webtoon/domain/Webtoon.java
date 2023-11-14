@@ -21,6 +21,7 @@ public class Webtoon {
     private Long id;
 
     private String title; //제목
+    private String author; // 작가
     private String url; //링크
     private String thumbnailUrl; //썸네일 링크
     private String genre; //장르
@@ -33,6 +34,10 @@ public class Webtoon {
 
     public void updateTitle(String title) {
         this.title = title;
+    }
+
+    public void updateAuthor(String author) {
+        this.author = author;
     }
 
     public void updateUrl(String url) {
