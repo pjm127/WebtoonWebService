@@ -30,7 +30,7 @@ export default function Card({webtoon} : Props ) {
                 modal && 
                 <ModalPortal>
                     <p>모달창 열렸슴니당!</p>
-                    <WebtoonInfoModal webtoon={webtoon}></WebtoonInfoModal>
+                    <WebtoonInfoModal webtoon={webtoon} onClose = {()=>setModal(false)}></WebtoonInfoModal> 
                 </ModalPortal>
             }
         </div>
