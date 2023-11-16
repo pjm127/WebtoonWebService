@@ -5,7 +5,11 @@ import CommentWrite from './CommentWrite';
 import ModalPortal from './ModalPortal';
 
 export default function CommentModal() {
-  let [commentModal, setCommentModal] = useState(false);
+  let [commentModal, setCommentModal] = useState<boolean>(false);
+
+  const commentModalClose = () => {
+    setCommentModal(false)
+  }
 
   return (
     <div className = "flex col-start-1 col-end-3 justify-between">
@@ -17,7 +21,7 @@ export default function CommentModal() {
       {
         commentModal && 
         <ModalPortal>
-          <CommentWrite></CommentWrite>
+          <CommentWrite setCommentModal={commentModalClose}></CommentWrite>
         </ModalPortal>
       }
     </div>
