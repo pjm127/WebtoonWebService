@@ -46,11 +46,15 @@ public abstract class CrawlingWebtoonInfos  {
 				switchToTab(0);
 				urls.addAll(crawlWebtoonUrlsOfDay(day));
 			}
+			System.out.println("총 url 개수: "  + urls.size());
+			
 			// 웹툰별 정보 크롤링
 			for (String url : urls) {
 				((JavascriptExecutor) driver).executeScript("window.open()");
 				switchToTab(1);
+				
 				webtoons.add(crawlWebtoons(url));
+				System.out.println("현재 크롤링한 웹툰 수: " + webtoons.size());
 				driver.close();
 				switchToTab(-1);
 			}
@@ -67,9 +71,6 @@ public abstract class CrawlingWebtoonInfos  {
 			overallLikeCount += webtoon.getLikeCount();
 		}
 		
-		System.out.println("============================================================================");
-		System.out.println("전체 웹툰 수: " + webtoons.size());
-		System.out.println("============================================================================");
 		for (Webtoon webtoon : webtoons) {
 			webtoon.updateLikeProportion((float) (webtoon.getLikeCount() / (float) overallLikeCount));
 			webtoon.updateOverallLikeCount(overallLikeCount);
@@ -105,10 +106,15 @@ public abstract class CrawlingWebtoonInfos  {
 				System.out.println("저장소에 갱신 완료");
 				continue;
 			}
+			
 			// 해당 제목의 웹툰이 db에 없는 경우 새로운 정보 저장
 			webtoonRepository.save(webtoon);
 			System.out.println("저장소에 저장 완료");
 		}
+		
+		System.out.println("============================================================================");
+		System.out.println("전체 웹툰 수: " + webtoons.size());
+		System.out.println("============================================================================");
 	}
 	
 	protected abstract List<String> crawlWebtoonUrlsOfDay(String day);

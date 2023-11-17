@@ -79,6 +79,9 @@ public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 		String title = driver.findElement(By.className("EpisodeListInfo__title--mYLjC")).getText();
 //		webtoon.setTitle(title);
 //		System.out.println("제목: " + title);
+		
+		// 작가
+		String author = driver.findElement(By.className("ContentMetaInfo__link--xTtO6")).getText();
 
 		// 링크
 //		webtoon.setUrl(url);
@@ -153,6 +156,7 @@ public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 		
 		return Webtoon.builder()
 				.title(title)
+				.author(author)
 				.url(url)
 				.thumbnailUrl(thumbnail)
 				.genre(genres)
