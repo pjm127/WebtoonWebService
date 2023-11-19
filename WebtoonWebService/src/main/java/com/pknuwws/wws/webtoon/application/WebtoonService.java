@@ -2,6 +2,7 @@ package com.pknuwws.wws.webtoon.application;
 
 import com.pknuwws.wws.exception.CustomException;
 import com.pknuwws.wws.webtoon.domain.Webtoon;
+import com.pknuwws.wws.webtoon.dto.SearchWebtoonListRequest;
 import com.pknuwws.wws.webtoon.dto.WebtoonListRequest;
 import com.pknuwws.wws.webtoon.repository.WebtoonRepository;
 
@@ -116,5 +117,8 @@ public class WebtoonService {
         return webtoonRepository.findById(id).orElseThrow(() -> new CustomException(NOT_FOUND_WEBTOON));
     }
 
-
+    //웹툰 검색
+    public Page<WebtoonListRequest>  searchWebtoonList(String keyword,String week,String genre,Pageable page){
+        return webtoonRepository.searchWebtoonList(keyword,genre,week,page);
+    }
 }

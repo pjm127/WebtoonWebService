@@ -1,10 +1,13 @@
 package com.pknuwws.wws.webtoon.presentation;
 
+import com.pknuwws.wws.webtoon.dto.SearchWebtoonListRequest;
 import com.pknuwws.wws.webtoon.dto.WebtoonListRequest;
 import com.pknuwws.wws.webtoon.application.WebtoonService;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -53,4 +56,15 @@ public class WebtoonController {
     {
         return ResponseEntity.ok(webtoonService.getNewWebtoonList(page));
     }
+    //7. 검색
+    @GetMapping("/search")
+    private ResponseEntity<Page<WebtoonListRequest>> searchWebtoon(
+        @RequestParam("keyword") String keyword,
+        @RequestParam("genre") String genre,
+        @RequestParam("week") String week,
+        @PageableDefault Pageable page)
+    {
+        return ResponseEntity.ok(webtoonService.searchWebtoonList(keyword, genre, week, page)) ;
+    }
+
 }
