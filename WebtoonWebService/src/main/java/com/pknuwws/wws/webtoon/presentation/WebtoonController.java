@@ -1,6 +1,5 @@
 package com.pknuwws.wws.webtoon.presentation;
 
-import com.pknuwws.wws.webtoon.dto.SearchWebtoonListRequest;
 import com.pknuwws.wws.webtoon.dto.WebtoonListRequest;
 import com.pknuwws.wws.webtoon.application.WebtoonService;
 import io.swagger.v3.oas.annotations.Parameter;
