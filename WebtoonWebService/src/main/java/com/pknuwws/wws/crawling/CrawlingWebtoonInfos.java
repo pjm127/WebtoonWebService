@@ -5,7 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
@@ -31,38 +33,41 @@ public abstract class CrawlingWebtoonInfos  {
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\KWC\\Desktop\\Misc\\webCrawlingRequirements\\msedgedriver.exe");
 
 		options = new EdgeOptions();
-		options.addArguments("--disable-infobars"
-				);
+		options.addArguments();
 		driver = new EdgeDriver(options);
 
 		login();
-
-		List<Webtoon> webtoons = new ArrayList<>();
+		// 검색 환경 개선 팝업 뜰 때까지 6분 대기
 		try {
-			Set<String> urls = new HashSet<>();
-
-			// 요일별 웹툰 링크 크롤링
-			for (String day : DAYS) {
-				switchToTab(0);
-				urls.addAll(crawlWebtoonUrlsOfDay(day));
-			}
-			System.out.println("총 url 개수: "  + urls.size());
-			
-			// 웹툰별 정보 크롤링
-			for (String url : urls) {
-				((JavascriptExecutor) driver).executeScript("window.open()");
-				switchToTab(1);
-				
-				webtoons.add(crawlWebtoons(url));
-				System.out.println("현재 크롤링한 웹툰 수: " + webtoons.size());
-				driver.close();
-				switchToTab(-1);
-			}
-		} catch(Exception e) {
+			Thread.sleep(1000 * 60 * 6);
+		} catch (InterruptedException e) {
 			e.printStackTrace();
-		} finally {
-			driver.quit();
 		}
+		
+		List<Webtoon> webtoons = new ArrayList<>();
+		Set<String> urls = new HashSet<>();
+
+		// 요일별 웹툰 링크 크롤링
+		for (String day : DAYS) {
+			switchToTab(0);
+			urls.addAll(crawlWebtoonUrlsOfDay(day));
+		}
+		System.out.println("총 url 개수: "  + urls.size());
+		
+		// 웹툰별 정보 크롤링
+		for (String url : urls) {
+			((JavascriptExecutor) driver).executeScript("window.open()");
+			switchToTab(1);
+			try {
+				webtoons.add(crawlWebtoons(url));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			driver.close();
+			System.out.println("현재 크롤링한 웹툰 수: " + webtoons.size());
+			switchToTab(-1);
+		}
+		driver.quit();
 		System.out.println("크롤링 완료");
 		
 		// 플랫폼별 전체 좋아요 수, (좋아요 수) / (플랫폼별 전체 좋아요 수)
@@ -93,6 +98,7 @@ public abstract class CrawlingWebtoonInfos  {
 				System.out.println("저장돼 있는 웹툰");
 				// db 정보 업데이트
 				original.updateTitle(webtoon.getTitle());
+				original.updateAuthor(webtoon.getAuthor());
 				original.updateUrl(webtoon.getUrl());
 				original.updateDayOfWeek(webtoon.getDayOfWeek());
 				original.updateGenre(webtoon.getGenre());

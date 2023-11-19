@@ -126,7 +126,7 @@ public class CrawlingNaverWebtoonInfos extends CrawlingWebtoonInfos {
 		((JavascriptExecutor) driver).executeScript("window.open()");
 		switchToTab(2);
 		driver.get(latestUrl);
-		WebDriverWait latestWebDriverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		WebDriverWait latestWebDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		latestWebDriverWait.until(
 				ExpectedConditions.presenceOfElementLocated(By.cssSelector(".u_cnt._count"))
 				);
