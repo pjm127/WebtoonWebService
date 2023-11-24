@@ -8,7 +8,7 @@ export default async function RankPage() {
   const webtoonRanks = await getWebtoonRank(webtoons);
 
   return (
-    <WebtoonList webtoonList={webtoonRanks}></WebtoonList>
+    <WebtoonList webtoonList={webtoonRanks} isRank={true}></WebtoonList>
   )
 }
  

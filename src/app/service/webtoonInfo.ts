@@ -52,3 +52,7 @@ export async function getGenreWebtoon(genre : string) : Promise<Webtoon[]>{
          throw new Error(`${genre}웹툰 존재하지 않음!`) 
     }
 }
+export async function getNewWebtoon(){
+    let webtoons = await getAllWebtoonInfo();
+    
+}

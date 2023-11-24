@@ -1,6 +1,6 @@
 import Card from '@/app/components/Card'
 import WebtoonList from '@/app/components/WebtoonList'
-import { getGenreWebtoon } from '@/app/service/webtoonInfo'
+import { getGenreWebtoon} from '@/app/service/webtoonInfo'
 import React from 'react'
 import Image from 'next/image'
 
@@ -23,14 +23,12 @@ function convertGenre(genre : string) : string{
 export default async function Genre({params : {genre}} : Props) {
   const genreWebtoons = await getGenreWebtoon(convertGenre(genre))
   if(!genreWebtoons) throw new Error(`${genre} 웹툰 존재하지 않음`);
-  console.log("안녕@@@@@@@@@@@@@");
-  console.log("안녕@@@@@@@@@@@@@");
-  console.log("안녕@@@@@@@@@@@@@");
-  console.log("안녕@@@@@@@@@@@@@");
+
   return (
     <>
+
       {genre} 페이지 입니다.
-      <WebtoonList webtoonList={genreWebtoons}></WebtoonList>
+      <WebtoonList webtoonList={genreWebtoons} isRank={true}></WebtoonList>
     </>
   )
 }
