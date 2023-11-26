@@ -5,6 +5,7 @@ import ReactPlayer from 'react-player'
 import Background from './components/BackgroundPage'
 import { Head } from 'next/document'
 import Navbar from './components/Navbar'
+import SWRConfigContext from '@/context/SWRConfigContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,9 +23,13 @@ export default function RootLayout({
     <html lang="en">
         
         <body className={inter.className}>
-          <Background></Background>
+          {/* <Background></Background> */}
           <Navbar></Navbar>
-            {children}
+          <main>
+            {/* <SWRConfigContext> */}
+              {children}
+            {/* </SWRConfigContext> */}
+          </main>
           <div id = "modal"></div>
         </body>
     </html>

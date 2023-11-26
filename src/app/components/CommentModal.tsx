@@ -13,7 +13,7 @@ export default function CommentModal() {
 
   return (
     <div className = "flex col-start-1 col-end-3 justify-between">
-      <p className = "">Comment</p>
+      <p className = "pt-5">Comment</p>
       <button 
         className = "p-5 rounded-lg"
         onClick = {()=>{setCommentModal(true)}}

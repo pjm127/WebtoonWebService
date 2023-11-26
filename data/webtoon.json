@@ -2,6 +2,7 @@
     {
         "id" : "1",
         "title" : "김부장", 
+        "creator" : "정족택", 
         "url": "https://comic.naver.com/webtoon/list?titleId=783053",
         "thumnail" : "/mainCircle/김부장.png" ,
         "genre" : ["액션", "판타지"],
@@ -14,6 +15,7 @@
     {
         "id" : "2",
         "title" : "신혼일기", 
+        "creator" : "자까",
         "url": "https://comic.naver.com/webtoon/list?titleId=812354",
         "thumnail" : "/mainCircle/신혼일기.png",
         "genre" : ["일상"],
@@ -26,6 +28,7 @@
     {
         "id" : "3",
         "title" : "외모지상주의", 
+        "creator" : "박태준",
         "url": "https://comic.naver.com/webtoon/list?titleId=641253",
         "thumnail" : "/mainCircle/외모지상주의.png",
         "genre" : ["액션", "판타지"],
@@ -38,6 +41,7 @@
     {
         "id" : "4",
         "title" : "퀘스트지상주의", 
+        "creator" : "태완",
         "url": "https://comic.naver.com/webtoon/list?titleId=783052",
         "thumnail" : "/mainCircle/퀘스트지상주의.png",
         "genre" : ["액션", "판타지"],
@@ -50,6 +54,7 @@
     {
         "id" : "5",
         "title" : "화산귀환", 
+        "creator" : "LICO",
         "url": "https://comic.naver.com/webtoon/list?titleId=769209",
         "thumnail" : "/mainCircle/화산귀환.png",
         "genre" : ["무협", "액션"],
@@ -62,6 +67,7 @@
     {
         "id" : "6",
         "title" : "갓 오브 하이스쿨", 
+        "creator" : "박용제",
         "url": "https://comic.naver.com/webtoon/list?titleId=318995",
         "thumnail" : "/genreCircle/갓오브하이스쿨.png",
         "genre" : ["액션", "판타지"],
@@ -73,7 +79,8 @@
     },
     {
         "id" : "7",
-        "title" : "악녀는 두번 산다", 
+        "title" : "악녀는 두번 산다",
+        "creator" : "한민트", 
         "url": "https://page.kakao.com/content/55021766",
         "thumnail" : "/genreCircle/악녀는두번산다.png",
         "genre" : ["판타지", "로맨스"],
@@ -86,6 +93,7 @@
     {
         "id" : "8",
         "title" : "소오강호", 
+        "creator" : "35",
         "url": "https://page.kakao.com/content/57917069",
         "thumnail" : "/genreCircle/소오강호.png",
         "genre" : ["무협", "액션"],
@@ -98,6 +106,7 @@
     {
         "id" : "9",
         "title" : "아랫집 시누이", 
+        "creator" : "김진",
         "url": "https://comic.naver.com/webtoon/list?titleId=563782",
         "thumnail" : "/genreCircle/아랫집시누이.png",
         "genre" : ["일상"],
@@ -110,6 +119,7 @@
     {
         "id" : "10",
         "title" : "빌드업", 
+        "creator" : "911",
         "url": "https://comic.naver.com/webtoon/list?titleId=750826",
         "thumnail" : "/genreCircle/빌드업.png",
         "genre" : ["스포츠", "일상"],
@@ -121,7 +131,8 @@
     },
     {
         "id" : "11",
-        "title" : "이두나", 
+        "title" : "이두나",
+        "creator" : "민송아", 
         "url": "https://comic.naver.com/webtoon/list?titleId=731130",
         "thumnail" : "/genreCircle/이두나.png",
         "genre" : ["로맨스", "일상"],
@@ -134,6 +145,7 @@
     {
         "id" : "12",
         "title" : "타인은 지옥이다.", 
+        "creator" : "김용키",
         "url": "https://comic.naver.com/webtoon/list?titleId=708378",
         "thumnail" : "/genreCircle/타인은지옥이다.png",
         "genre" : ["스릴러"],

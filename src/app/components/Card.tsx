@@ -7,6 +7,7 @@ import { Webtoon } from '../models/webtoonType'
 import InfoModalDetail from './InfoModalDetail'
 import Link from 'next/link'
 import CommentModal from './CommentModal'
+import useSWR from 'swr'
 
 type Props = {
     webtoon : Webtoon,

@@ -15,7 +15,7 @@ export default function WebtoonInfoModal({
     onClose : () => void
 }) {
   return (
-    <div className = " bg-neutral-900/40 fixed top-0 left-0 w-full h-full">  
+    <div className = " bg-neutral-900/60 fixed top-0 left-0 w-full h-full">  
         <button className = 'fixed top-10 right-10' onClick = {()=>{onClose()}}>
                 <CloseButton/>
         </button>
