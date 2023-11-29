@@ -31,7 +31,7 @@ export default function WebtoonList({webtoonList, isRank = false} : Props) {
   }
 
   return (
-    <div className = "p-10 grid grid-cols-5 grid-rows-2 gap-4 m-auto"> 
+    <div className = "p-[100px] w-[100%] h-[100%] grid grid-cols-1 gap-4 m-auto sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5"> 
       {
         webtoonList.map((webtoon, index)=>{
           return(

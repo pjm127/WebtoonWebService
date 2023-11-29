@@ -15,7 +15,7 @@ export default function CommentModal() {
     <div className = "flex col-start-1 col-end-3 justify-between">
       <p className = "pt-5">Comment</p>
       <button 
-        className = "p-5 rounded-lg"
+        className = "p-5 rounded-lg hover:opacity-40"
         onClick = {()=>{setCommentModal(true)}}
       >작성하기</button>
       {

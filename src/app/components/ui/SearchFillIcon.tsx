@@ -3,6 +3,6 @@ import { RiSearchFill } from 'react-icons/ri'
 
 export default function SearchFillIcon() {
   return (
-    <RiSearchFill/>
+    <RiSearchFill className = "w-12 h-12"/>
   )
 }
