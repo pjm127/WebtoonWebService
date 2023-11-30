@@ -26,7 +26,7 @@ export default function InfoModalDetail({
             <p>플랫폼 : {platform}</p>
             <Link 
                 href = {url} 
-                className = "p-3 w-[30%] h-[50px] m-auto text-center text-neutral-50 rounded-lg bg-blue-500 col-start-1 col-end-3"
+                className = "p-3 w-[30%] h-[50px] m-auto text-center text-neutral-50 rounded-lg bg-blue-500 col-start-1 col-end-3 hover:opacity-80"
             >보러가기</Link>
             <CommentModal></CommentModal>
             <div className = 'p-2 row-start-[8] row-end-[10] col-start-1 col-end-3 border-[0.05rem] border-black rounded-sm'>

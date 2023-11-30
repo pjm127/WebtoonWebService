@@ -19,19 +19,22 @@ export default function Card({webtoon, children} : Props ) {
     let [modal, setModal] = useState<boolean>(false)
 
     return (
-        <div className = 'relative border-2 text-center rounded-md border-none w-[200px] overflow-hidden'>
-            <Image 
-                className = "border-none border-2 rounded-xl" 
-                src = {`/images${thumnail}`} 
-                alt = 'card image' 
-                width = {200} 
-                height = {400}
-                onClick={(event)=>{
-                    if(event.target === event.currentTarget) setModal(false);
-                    setModal(true)
-                }}
-            ></Image>
-            <p className = 'mt-2  text-stone-400'>{title}</p>
+        <div className = 'relative border-2  text-center rounded-md border-none w-[100%] overflow-hidden'>
+            <div className = ' mx-auto relative min-w-[200px] max-w-[250px] h-[300px]'>
+                <Image 
+                    className = "border-none border-2 rounded-xl cursor-pointer" 
+                    src = {`/images${thumnail}`} 
+                    alt = 'card image' 
+                    fill = {true}
+                    onClick={(event)=>{
+                        if(event.target === event.currentTarget) setModal(false);
+                        setModal(true)
+                    }}
+                ></Image>
+            </div>
+            <div className = 'h-[10%]'>
+                <p className = 'mt-2  text-stone-400'>{title}</p>
+            </div>
             {
                 modal && 
                 <ModalPortal>
