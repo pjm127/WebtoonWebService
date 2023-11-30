@@ -28,11 +28,7 @@ export default async function Genre({params : {genre}} : Props) {
   if(!genreWebtoons) throw new Error(`${genre} 웹툰 존재하지 않음`);
 
   return (
-<<<<<<< HEAD
-    <div className = 'w-[100%] h-[100%]'>
-=======
-    <div className = 'w-full h-full'>
->>>>>>> feature/circleAnimation
+    <div className = 'w-full'>
       {genre} 페이지 입니다.
       <WebtoonList webtoonList={genreWebtoons} isRank={true}></WebtoonList>
     </div>
