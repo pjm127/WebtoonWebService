@@ -29,7 +29,7 @@ export default function WebtoonList({webtoonList, isRank = false} : Props) {
   function listButton(){
     let arr 
   }
-
+  // 왜 안됨.
   return (
     <div className = "p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"> 
       {
