@@ -26,9 +26,11 @@ export default function Search() {
                     onChange = {(e)=>{setKeyword(e.target.value)}}
                     className = 'p-3 mr-4 w-[50%] h-7 rounded-md text-black'
                 />
-                <button type = "submit" onClick = {()=>{
-                    setGenres(-1);
-                    setDays(-1);
+                <button type = "submit" 
+                        className = 'hover:opacity-60 border-sky-200 border-[0.05rem] rounded-md py-1 px-2'
+                        onClick = {()=>{
+                            setGenres(-1);
+                            setDays(-1);
                 }}>검색</button>
             </form>          
             <span>장르</span>                  
