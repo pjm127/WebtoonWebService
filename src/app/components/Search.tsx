@@ -7,8 +7,7 @@ const dayOfWeek = ['월', '화', '수', '목', '금', '토', '일']
 
 export default function Search() {
     const [keyword, setKeyword] = useState<string>('');
-    const [genres, setGenres] = useState<number>();
-    const [days, setDay] = useState<number>(); 
+    const [genres, setGenres] = useState<string[]>([]);
     // const {data, isLoading, error} = useSWR(`/api/search/?keyword=${keyword}&genre`)
 
     const onSubmit = (e : FormEvent) => {
@@ -26,24 +25,14 @@ export default function Search() {
                     onChange = {(e)=>{setKeyword(e.target.value)}}
                     className = 'p-3 mr-4 w-[50%] h-7 rounded-md text-black'
                 />
-                <button 
-                    className = 'p-2 rounded-md hover:bg-sky-200'
-                    type = "submit" 
-                    onClick = {e => {
-                        setGenres(-1);
-                        setDay(-1);
-                    }}
-                >검색</button>
+                <button type = "submit">검색</button>
             </form>          
             <span>장르</span>                  
             <div className = 'grid grid-rows-2 grid-cols-4 gap-3 mb-9 mt-1'>
                 {
                     genre.map((genre, index)=>{
                         return(
-                            <button 
-                                className ={`p-3 border-sky-200 border-[0.05rem] rounded-md ${genres === index && 'bg-sky-200'}`}
-                                onClick = {(e)=>{setGenres(index)}}   
-                            >{genre}</button>
+                            <button className ='p-3 border-sky-200 border-[0.05rem] rounded-md'>{genre}</button>
                         )
                     })
                 }
@@ -53,10 +42,7 @@ export default function Search() {
                 {
                     dayOfWeek.map((day, index)=>{
                         return(
-                            <button 
-                                className ={`p-3 w-[10%] border-sky-200 border-[0.05rem] rounded-md ${days === index && 'bg-sky-200'}`}
-                                onClick = {e => setDay(index)}
-                            >{day}</button>
+                            <button className ='p-3 w-[10%] border-sky-200 border-[0.05rem] rounded-md'>{day}</button>
                         )
                     })
                 }
