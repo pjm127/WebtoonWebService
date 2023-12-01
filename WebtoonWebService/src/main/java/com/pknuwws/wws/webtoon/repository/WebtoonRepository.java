@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface WebtoonRepository extends JpaRepository<Webtoon, Long> {
+public interface WebtoonRepository extends JpaRepository<Webtoon, Long> , WebtoonRepositoryCustom{
   Page<Webtoon> findAll(Pageable pageable);
   Boolean existsByTitle(String title);
   Webtoon findByTitle(String title);

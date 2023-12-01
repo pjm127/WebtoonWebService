@@ -26,64 +26,26 @@ public class WebtoonService {
     private final WebtoonRepository webtoonRepository;
 
     //웹툰 전체 목록
-    public List<WebtoonListRequest> getAllWebtoonList(int page) {
+    public Page<Webtoon> getAllWebtoonList(int page) {
         Pageable pageable = PageRequest.of(page, 10, Sort.by(Sort.Order.desc("likeProportion")));
-        Page<Webtoon> allWebtoonList = webtoonRepository.findAll(pageable);
+        return webtoonRepository.findAll(pageable);
 
-        return allWebtoonList.stream()
-            .map(webtoon -> WebtoonListRequest.builder()
-                .title(webtoon.getTitle())
-                .url(webtoon.getUrl())
-                .thumbnailUrl(webtoon.getThumbnailUrl())
-                .genre(webtoon.getGenre())
-                .likeCount(webtoon.getLikeCount())
-                .firstDate(webtoon.getFirstDate())
-                . dayOfWeek(webtoon.getDayOfWeek())
-                .platform(webtoon.getPlatform())
-                .likeProportion(webtoon.getLikeProportion())
-                .build())
-            .collect(Collectors.toList());
+
     }
 
    //장르별 웹툰 목록
-   public List<WebtoonListRequest> getGenreWebtoonList(String genre,int page) {
+   public Page<Webtoon> getGenreWebtoonList(String genre,int page) {
        Pageable pageable = PageRequest.of(page, 10, Sort.by(Sort.Order.desc("likeProportion")));
-       Page<Webtoon> genreWebtoonList = webtoonRepository.findByGenre(genre, pageable);
+       return webtoonRepository.findByGenre(genre, pageable);
 
-       return genreWebtoonList.stream()
-               .map(webtoon -> WebtoonListRequest.builder()
-                       .title(webtoon.getTitle())
-                       .url(webtoon.getUrl())
-                       .thumbnailUrl(webtoon.getThumbnailUrl())
-                       .genre(webtoon.getGenre())
-                       .likeCount(webtoon.getLikeCount())
-                       .firstDate(webtoon.getFirstDate())
-                       . dayOfWeek(webtoon.getDayOfWeek())
-                       .platform(webtoon.getPlatform())
-                       .likeProportion(webtoon.getLikeProportion())
-                       .build())
-               .collect(Collectors.toList());
+
    }
 
-    public List<WebtoonListRequest> getNewWebtoonList(int page) {
+    public Page<Webtoon> getNewWebtoonList(int page) {
         Pageable pageable = PageRequest.of(page, 10, Sort.by(Sort.Order.desc("likeProportion")));
         LocalDate localDate = LocalDate.now().minusMonths(3);
+        return webtoonRepository.findByFirstDate(localDate, pageable);
 
-        Page<Webtoon> newWebtoonList = webtoonRepository.findByFirstDate(localDate, pageable);
-
-        return newWebtoonList.stream()
-                .map(webtoon -> WebtoonListRequest.builder()
-                        .title(webtoon.getTitle())
-                        .url(webtoon.getUrl())
-                        .thumbnailUrl(webtoon.getThumbnailUrl())
-                        .genre(webtoon.getGenre())
-                        .likeCount(webtoon.getLikeCount())
-                        .firstDate(webtoon.getFirstDate())
-                        . dayOfWeek(webtoon.getDayOfWeek())
-                        .platform(webtoon.getPlatform())
-                        .likeProportion(webtoon.getLikeProportion())
-                        .build())
-                .collect(Collectors.toList());
     }
 
 
@@ -116,5 +78,8 @@ public class WebtoonService {
         return webtoonRepository.findById(id).orElseThrow(() -> new CustomException(NOT_FOUND_WEBTOON));
     }
 
-
+    //웹툰 검색
+    public Page<WebtoonListRequest>  searchWebtoonList(String keyword,String week,String genre,Pageable page){
+        return webtoonRepository.searchWebtoonList(keyword,genre,week,page);
+    }
 }
