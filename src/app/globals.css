@@ -23,8 +23,6 @@ body{
 /* video{
 	width : 100%;
 } */
-
-
 .wrapper{
 	width: 600px;
 	height: 600px;
@@ -71,3 +69,20 @@ body{
 		margin-left: -300px;
 	}
 } 
+
+
+.animation.circle{
+	transition : 1s all;
+	transform : rotateZ(360deg) scale(0%);
+	transform-origin : center;
+	/* animation : circleTransition 1s forwards; */
+}
+
+@keyframes circleTransition {
+	30% {
+		transform : scale(130%);
+	}
+	100%{
+		transform : scale(0%) rotateZ(360deg)
+	}
+}

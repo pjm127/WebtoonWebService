@@ -19,10 +19,10 @@ export default function Card({webtoon, children} : Props ) {
     let [modal, setModal] = useState<boolean>(false)
 
     return (
-        <div className = 'relative border-2 text-center rounded-md border-none overflow-hidden'>
+        <div className = 'relative border-2 text-center rounded-md border-none overflow-hidden hover:scale-90 transition-transform'>
             <div className = 'relative mx-auto min-w-[200px] max-w-[250px] h-[300px]'>
                 <Image 
-                    className = "border-none border-2 rounded-xl" 
+                    className = "border-none border-2 rounded-xl cursor-pointer" 
                     src = {`/images${thumnail}`} 
                     alt = 'card image' 
                     fill = {true}

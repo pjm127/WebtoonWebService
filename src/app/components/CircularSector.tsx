@@ -1,10 +1,12 @@
 'use client'
 
-import React, { MouseEventHandler, MouseEvent, useState, useEffect } from 'react'
+import React, { MouseEventHandler, MouseEvent, useState, useEffect, useRef } from 'react'
 import styles from "./sector.module.css"
 import "../../app/globals.css"
 import { WebtoonThum } from '../service/webtoonInfo'
 import Link from 'next/link'
+import TransitionContext from '../context/TransitionContext'
+
 
 const mainCircle = [
     '검색', 
@@ -25,6 +27,7 @@ export default function CircularSector({sectorNum, thumnails, pageUrl} : Props) 
     const sectorSkew : boolean[] = [];
     let skewExp = (10*sectorNum-32);
     let rotateExp = (0+(360/sectorNum));
+    const circleRef = useRef<HTMLDivElement>();
 
     for(let i = 0; i < sectorNum; i++){ 
         sectorOpacity.push(false) 
@@ -34,8 +37,22 @@ export default function CircularSector({sectorNum, thumnails, pageUrl} : Props) 
     let [sectorOpacityState, setSectorOpacityState] = useState<boolean[]>(sectorOpacity);
     let [sectorSkewState, setSectorSkewsState] = useState<boolean[]>(sectorSkew)
 
+    // useEffect(()=>{
+    //     return ()=>{
+    //         if(circleRef.current){
+    //             circleRef.current.classList.add('animation')
+    //         }
+    //         setTimeout(()=>{}, 3000)
+    //     }
+    // },[])
+    // useEffect(()=>{
+    //     if(circleRef.current){
+    //         circleRef.current.classList.remove('animation')
+    //     }
+    // },[])
+
     // function makeCircle(){
-    //     let arr = [];
+    //     let arr = []
 
     //     // for(let i = 0; i < sectorNum; i++){
     //     //     arr.push(
@@ -77,30 +94,30 @@ export default function CircularSector({sectorNum, thumnails, pageUrl} : Props) 
    
 
     return (
-        <section className = "items-center mt-10 text-center">
+        <section className = "circle items-center mt-10 text-center">
             <div className = "wrapper m-auto">
-            {
-                thumnails.map((thumnail, i)=>{
-                    return(
-                        <Link href = {pageUrl[i]}>
-                            <div key = {i} className = {`sector ${(sectorOpacityState[i] === true) && 'hoverOpacity'}`}
-                                style = {{
-                                    transform : `
-                                        rotate(${rotateExp*i}deg) 
-                                        skewX(${skewExp}deg)
-                                    `,
-                                    backgroundImage : `url(/images/${thumnail.thumnail})`,
-                                    zIndex : `${i}`
-                                }}
-                                onMouseOver={(e)=>{mouseOver(e, i)}}
-                                onMouseOut={(e)=>{mouseOut(e, i)}}
-                            >
-                                <p className = "relative top-[90%] text-right align-text-bottom">{mainCircle[i]}</p>
-                            </div>
-                        </Link>
-                    )
-                })
-            }
+                {
+                    thumnails.map((thumnail, i)=>{
+                        return(
+                            <Link href = {pageUrl[i]}>
+                                <div key = {i} className = {`sector ${(sectorOpacityState[i] === true) && 'hoverOpacity'}`}
+                                    style = {{
+                                        transform : `
+                                            rotate(${rotateExp*i}deg) 
+                                            skewX(${skewExp}deg)
+                                        `,
+                                        backgroundImage : `url(/images/${thumnail.thumnail})`,
+                                        zIndex : `${i}`
+                                    }}
+                                    onMouseOver={(e)=>{mouseOver(e, i)}}
+                                    onMouseOut={(e)=>{mouseOut(e, i)}}
+                                >
+                                    <p className = "relative top-[90%] text-right align-text-bottom">{mainCircle[i]}</p>
+                                </div>
+                            </Link>
+                         )
+                    })
+                }
             </div>
         </section>
     )
