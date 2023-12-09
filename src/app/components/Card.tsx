@@ -1,11 +1,11 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
+import '../globals.css'
 import Image from 'next/image'
 import ModalPortal from './ModalPortal'
 import WebtoonInfoModal from './WebtoonInfoModal'
 import { Webtoon } from '../models/webtoonType'
 import InfoModalDetail from './InfoModalDetail'
-import Link from 'next/link'
 import CommentModal from './CommentModal'
 import useSWR from 'swr'
 
@@ -17,6 +17,7 @@ type Props = {
 export default function Card({webtoon, children} : Props ) {
     const {title, url, thumnail, genre, likeCount, firstDate, dayOfWeek, platform} = webtoon;
     let [modal, setModal] = useState<boolean>(false)
+    // const loadingRef = useRef<HTMLDivElement>(null)  
 
     return (
         <div className = 'relative border-2 text-center rounded-md border-none overflow-hidden hover:scale-90 transition-transform'>
@@ -26,11 +27,13 @@ export default function Card({webtoon, children} : Props ) {
                     src = {`/images${thumnail}`} 
                     alt = 'card image' 
                     fill = {true}
+                    // onLoadingComplete={()=>{loadingRef.current?.remove()}}    이미지 로딩 애니메이션
                     onClick={(event)=>{
                         if(event.target === event.currentTarget) setModal(false);
                         setModal(true)
                     }}
                 ></Image>
+                {/* <div className = 'imageLoading' ref={loadingRef}></div> */}
             </div>
             <p className = 'mt-2  text-stone-400'>{title}</p>
             {

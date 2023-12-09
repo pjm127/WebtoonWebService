@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Webtoon } from '../models/webtoonType'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,6 +10,7 @@ export default function InfoModalDetail({
 } : {
     webtoon : Webtoon
 }) {
+  
   return (
     <section className = "p-10 w-[500px] h-[700px] m-auto gap-4 grid grid-rows-[repeat(10,minmax(0,1fr))] grid-cols-2 bg-white rounded-xl mt-6">
             <Image 

@@ -1,12 +1,14 @@
 'use client'
 
-import React, { MouseEventHandler, MouseEvent, useState, useEffect, useRef } from 'react'
+import React, { MouseEventHandler, MouseEvent, useState, useEffect, useRef, RefObject, useContext } from 'react'
 import styles from "./sector.module.css"
 import "../../app/globals.css"
 import { WebtoonThum } from '../service/webtoonInfo'
 import Link from 'next/link'
 import TransitionContext from '../context/TransitionContext'
-
+import gsap from 'gsap'
+import { LOADING_STATES, NavigationContext, useNavigationContext } from '../context/NavigationContext'
+import Navigate from './Navigate'
 
 const mainCircle = [
     '검색', 
@@ -21,46 +23,25 @@ type Props = {
     thumnails : WebtoonThum[],
     pageUrl : string[]
 }
+let circleRef : RefObject<HTMLDivElement>
+
 
 export default function CircularSector({sectorNum, thumnails, pageUrl} : Props) {
+
     const sectorOpacity : boolean[] = [];
     const sectorSkew : boolean[] = [];
     let skewExp = (10*sectorNum-32);
     let rotateExp = (0+(360/sectorNum));
-    const circleRef = useRef<HTMLDivElement>();
+    circleRef = useRef<HTMLDivElement>(null);
 
     for(let i = 0; i < sectorNum; i++){ 
         sectorOpacity.push(false) 
         sectorSkew.push(false)
     }
-    
+
     let [sectorOpacityState, setSectorOpacityState] = useState<boolean[]>(sectorOpacity);
     let [sectorSkewState, setSectorSkewsState] = useState<boolean[]>(sectorSkew)
 
-    // useEffect(()=>{
-    //     return ()=>{
-    //         if(circleRef.current){
-    //             circleRef.current.classList.add('animation')
-    //         }
-    //         setTimeout(()=>{}, 3000)
-    //     }
-    // },[])
-    // useEffect(()=>{
-    //     if(circleRef.current){
-    //         circleRef.current.classList.remove('animation')
-    //     }
-    // },[])
-
-    // function makeCircle(){
-    //     let arr = []
-
-    //     // for(let i = 0; i < sectorNum; i++){
-    //     //     arr.push(
-    //     //         <div className = {`sector rotate-[${0+72*i}deg] skew-x-[18deg] bg-[url(/images/${thumnails[i].thumnail})]`}></div>
-    //     //     )
-    //     // }
-    //     // return arr;
-    // }
     const mouseOver = (e : MouseEvent<HTMLDivElement>, sectorListIndex : number) => {
 
         const newSectorOpacityState = sectorOpacityState.map((sectorState, index)=>{
@@ -94,12 +75,12 @@ export default function CircularSector({sectorNum, thumnails, pageUrl} : Props) 
    
 
     return (
-        <section className = "circle items-center mt-10 text-center">
+        <div className = "circle items-center mt-10 text-center" ref={circleRef}>
             <div className = "wrapper m-auto">
                 {
                     thumnails.map((thumnail, i)=>{
                         return(
-                            <Link href = {pageUrl[i]}>
+                            <Navigate href = {pageUrl[i]}>
                                 <div key = {i} className = {`sector ${(sectorOpacityState[i] === true) && 'hoverOpacity'}`}
                                     style = {{
                                         transform : `
@@ -114,11 +95,40 @@ export default function CircularSector({sectorNum, thumnails, pageUrl} : Props) 
                                 >
                                     <p className = "relative top-[90%] text-right align-text-bottom">{mainCircle[i]}</p>
                                 </div>
-                            </Link>
+                            </Navigate>
                          )
                     })
                 }
             </div>
-        </section>
+        </div>
     )
+}
+export function circleInit(){
+    console.log("Initalized Loading Component");
+    /*Add your initial state here */
+    gsap.set(circleRef.current, {
+      clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+    });
+}
+export function circleEnter(){
+    console.log("Performing Loading in");
+    /*Add your page enter animation*/
+    gsap.to(circleRef.current, {
+      clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+      duration: 1,
+      ease: "power3.inOut",
+    });
+}
+export function circleExit(){
+    const {loading, setLoading} = useNavigationContext();
+    console.log("Performing Loading out");
+    /*Add your page exit animations*/
+    gsap.to(circleRef.current, {
+      clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+      duration: 1,
+      ease: "power3.inOut",
+      onComplete: () => {
+        if (loading === LOADING_STATES.INIT) setLoading(LOADING_STATES.LOADED);
+      },
+    });
 }
