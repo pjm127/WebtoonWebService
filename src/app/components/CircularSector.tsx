@@ -103,32 +103,32 @@ export default function CircularSector({sectorNum, thumnails, pageUrl} : Props) 
         </div>
     )
 }
-export function circleInit(){
-    console.log("Initalized Loading Component");
-    /*Add your initial state here */
-    gsap.set(circleRef.current, {
-      clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-    });
-}
-export function circleEnter(){
-    console.log("Performing Loading in");
-    /*Add your page enter animation*/
-    gsap.to(circleRef.current, {
-      clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
-      duration: 1,
-      ease: "power3.inOut",
-    });
-}
-export function circleExit(){
-    const {loading, setLoading} = useNavigationContext();
-    console.log("Performing Loading out");
-    /*Add your page exit animations*/
-    gsap.to(circleRef.current, {
-      clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-      duration: 1,
-      ease: "power3.inOut",
-      onComplete: () => {
-        if (loading === LOADING_STATES.INIT) setLoading(LOADING_STATES.LOADED);
-      },
-    });
-}
+// export function circleInit(){
+//     console.log("Initalized Loading Component");
+//     /*Add your initial state here */
+//     gsap.set(circleRef.current, {
+//       clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+//     });
+// }
+// export function circleEnter(){
+//     console.log("Performing Loading in");
+//     /*Add your page enter animation*/
+//     gsap.to(circleRef.current, {
+//       clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+//       duration: 1,
+//       ease: "power3.inOut",
+//     });
+// }
+// export function circleExit(){
+//     const {loading, setLoading} = useNavigationContext();
+//     console.log("Performing Loading out");
+//     /*Add your page exit animations*/
+//     gsap.to(circleRef.current, {
+//       clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+//       duration: 1,
+//       ease: "power3.inOut",
+//       onComplete: () => {
+//         if (loading === LOADING_STATES.INIT) setLoading(LOADING_STATES.LOADED);
+//       },
+//     });
+// }
