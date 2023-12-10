@@ -112,6 +112,6 @@ public class WebtoonService {
 
     //웹툰 검색
     public Page<WebtoonListResponse>  searchWebtoonList(String keyword, String week, String genre, Pageable page){
-        return webtoonRepository.searchWebtoonList(keyword,genre,week,page);
+        return webtoonRepository.searchWebtoonList(keyword,genre,week,page); //ㄷ
     }
 }
