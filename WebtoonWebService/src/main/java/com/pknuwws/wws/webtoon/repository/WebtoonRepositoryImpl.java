@@ -4,8 +4,8 @@ import static com.pknuwws.wws.webtoon.domain.QWebtoon.webtoon;
 import static io.jsonwebtoken.lang.Collections.isEmpty;
 import static org.springframework.util.StringUtils.hasText;
 
-import com.pknuwws.wws.webtoon.dto.QWebtoonListRequest;
-import com.pknuwws.wws.webtoon.dto.WebtoonListRequest;
+
+import com.pknuwws.wws.webtoon.dto.WebtoonListResponse;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -23,17 +23,18 @@ public class WebtoonRepositoryImpl implements WebtoonRepositoryCustom{
     }
 
     @Override
-    public Page<WebtoonListRequest> searchWebtoonList(String keyword, String genre, String week, Pageable pageable) {
+    public Page<WebtoonListResponse> searchWebtoonList(String keyword, String genre, String week, Pageable pageable) {
 
-        QueryResults<WebtoonListRequest> results = queryFactory.select(
+        return null;
+       /* QueryResults<WebtoonListResponse> results = queryFactory.select(
                         new QWebtoonListRequest(webtoon.title, webtoon.url, webtoon.thumbnailUrl, webtoon.genre,
                                 webtoon.likeCount, webtoon.overallLikeCount, webtoon.likeProportion, webtoon.firstDate,
                                 webtoon.dayOfWeek
                                 , webtoon.platform))
                 .from(webtoon).where(genreEq(genre), weekEq(week), genreLike(keyword)).fetchResults();
-        List<WebtoonListRequest> results1 = results.getResults();
+        List<WebtoonListResponse> results1 = results.getResults();
         long total = results.getTotal();
-        return new PageImpl<>(results1, pageable, total);
+        return new PageImpl<>(results1, pageable, total);*/
 
     }
     private BooleanExpression genreEq(String genre) {

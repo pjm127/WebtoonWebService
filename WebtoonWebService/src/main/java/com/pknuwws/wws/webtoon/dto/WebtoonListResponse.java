@@ -2,7 +2,6 @@ package com.pknuwws.wws.webtoon.dto;
 
 
 import com.querydsl.core.annotations.QueryProjection;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +10,9 @@ import java.time.LocalDate;
 @Data
 @Builder
 @NoArgsConstructor
-public class WebtoonListRequest {
+public class WebtoonListResponse {
+
+    private Long id;
     private String title; //제목
     private String url; //링크
     private String thumbnailUrl; //썸네일 링크
@@ -22,12 +23,11 @@ public class WebtoonListRequest {
     private LocalDate firstDate; //첫 연재일
     private String  dayOfWeek; // 연재 요일
     private String platform; //플랫폼
-
-
     @QueryProjection
-    public WebtoonListRequest(String title, String url, String thumbnailUrl, String genre, Integer likeCount,
+    public WebtoonListResponse(Long id,String title, String url, String thumbnailUrl, String genre, Integer likeCount,
                               Integer overallLikeCount, Float likeProportion, LocalDate firstDate, String dayOfWeek,
                               String platform) {
+        this.id = id;
         this.title = title;
         this.url = url;
         this.thumbnailUrl = thumbnailUrl;
@@ -39,4 +39,6 @@ public class WebtoonListRequest {
         this.dayOfWeek = dayOfWeek;
         this.platform = platform;
     }
+
+
 }

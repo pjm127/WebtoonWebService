@@ -35,8 +35,7 @@ public class CommentService {
 
     //댓글작성
     public void createComment(Webtoon webtoon, CommentRequest createCommentRequest) {
-        log.info("createCommentRequest = {}", createCommentRequest);
-        log.info("web = {}", webtoon);
+
         Comment com = Comment.builder()
                 .webtoon(webtoon)
                 .comment(createCommentRequest.getComment())
