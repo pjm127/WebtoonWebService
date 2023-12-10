@@ -1,14 +1,14 @@
 import React, { useRef } from 'react'
-import { Webtoon } from '../models/webtoonType'
+import { TempWebtoon, Webtoon } from '../models/webtoonType'
 import Image from 'next/image'
 import Link from 'next/link'
 import CommentModal from './CommentModal'
 import CommentList from './CommentList'
 
 export default function InfoModalDetail({
-    webtoon : {title, url, creator, thumnail, genre, likeCount, firstDate, dayOfWeek, platform},
+    webtoon : {title, url, creator, thumnail, genre, likeCount, firstDate, dayOfweek, platform},
 } : {
-    webtoon : Webtoon
+    webtoon : TempWebtoon
 }) {
   
   return (
@@ -23,7 +23,7 @@ export default function InfoModalDetail({
             <p>제목 : {title}</p>
             <p>작가 : {creator}</p>
             <p>장르 : {genre}</p>
-            <p>요일 : {dayOfWeek}</p>
+            <p>요일 : {dayOfweek}</p>
             <p>플랫폼 : {platform}</p>
             <Link 
                 href = {url} 

@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import { Webtoon } from '../models/webtoonType'
+import { TempWebtoon, Webtoon } from '../models/webtoonType'
 import Image from 'next/image'
 import Link from 'next/link'
 import CommentModal from './CommentModal'
@@ -7,11 +7,11 @@ import CloseButton from './ui/CloseButton'
 
 export default function WebtoonInfoModal({
     children,
-    webtoon : {title, url, thumnail, genre, likeCount, firstDate, dayOfWeek, platform},
+    webtoon : {title, url, thumnail, genre, likeCount, firstDate, dayOfweek, platform},
     onClose
 } : {
     children : React.ReactNode,
-    webtoon : Webtoon,
+    webtoon : TempWebtoon,
     onClose : () => void
 }) {
   return (

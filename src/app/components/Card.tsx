@@ -4,18 +4,18 @@ import '../globals.css'
 import Image from 'next/image'
 import ModalPortal from './ModalPortal'
 import WebtoonInfoModal from './WebtoonInfoModal'
-import { Webtoon } from '../models/webtoonType'
+import { TempWebtoon, Webtoon } from '../models/webtoonType'
 import InfoModalDetail from './InfoModalDetail'
 import CommentModal from './CommentModal'
 import useSWR from 'swr'
 
 type Props = {
-    webtoon : Webtoon,
+    webtoon : TempWebtoon,
     children : React.ReactNode
 }
 
 export default function Card({webtoon, children} : Props ) {
-    const {title, url, thumbnailUrl, genre, likeCount, firstDate, dayOfWeek, platform} = webtoon;
+    const {title, url, thumnail, genre, likeCount, firstDate, dayOfweek, platform} = webtoon;
     let [modal, setModal] = useState<boolean>(false)
     // const loadingRef = useRef<HTMLDivElement>(null)  
 
@@ -24,7 +24,7 @@ export default function Card({webtoon, children} : Props ) {
             <div className = 'relative mx-auto min-w-[200px] max-w-[250px] h-[300px]'>
                 <Image 
                     className = "border-none border-2 rounded-xl cursor-pointer" 
-                    src = {thumbnailUrl} 
+                    src = {`/images${thumnail}`} 
                     alt = 'card image' 
                     fill = {true}
                     // onLoadingComplete={()=>{loadingRef.current?.remove()}}    이미지 로딩 애니메이션

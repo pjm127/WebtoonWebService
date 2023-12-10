@@ -51,3 +51,16 @@ export type WebtoonListPage = {
     empty : boolean;
 }
 
+export type TempWebtoon = {
+    id : number;
+    title : string;
+    creator : string; 
+    url : string;
+    thumnail : string;
+    genre : string[];
+    likeCount : number;
+    firstDate : string;
+    dayOfweek : string;
+    platform : string;
+    likeProportion : number
+}
