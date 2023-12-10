@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { Webtoon } from '../models/webtoonType'
+import { Webtoon, WebtoonListPage } from '../models/webtoonType'
 import Card from './Card'
 import Rank from './Rank'
 import useSWR from 'swr'
@@ -19,7 +19,8 @@ const onePageCountPage = 10;
 export default function WebtoonList({webtoonList, isRank = false} : Props) {
   const [nowPageNum, setPageNum] = useState<number>(1);
   // const {data, isLoading, error} = useSWR('/api/list', fetcher)
-  const {data, error} = useSWR<Webtoon[]>('http://localhost:9001/api/vi/webtoon/list?page=1', fetcher)
+  const {data, error} = useSWR<WebtoonListPage>('http://localhost:9001/api/vi/webtoon/list?page=1', fetcher)
+  const {content} = data as WebtoonListPage;
 
   // useEffect(()=>{
   //   const webtoons = fetch(`/api/list?page=${nowPageNum}`)
@@ -34,7 +35,7 @@ export default function WebtoonList({webtoonList, isRank = false} : Props) {
   return (
     <div className = "p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"> 
       {
-        (data as Webtoon[]).map((webtoon, index)=>{
+        (content).map((webtoon, index)=>{
           return(
             <Card webtoon={webtoon}>
               {

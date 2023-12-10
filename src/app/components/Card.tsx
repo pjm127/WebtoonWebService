@@ -15,7 +15,7 @@ type Props = {
 }
 
 export default function Card({webtoon, children} : Props ) {
-    const {title, url, thumnail, genre, likeCount, firstDate, dayOfWeek, platform} = webtoon;
+    const {title, url, thumbnailUrl, genre, likeCount, firstDate, dayOfWeek, platform} = webtoon;
     let [modal, setModal] = useState<boolean>(false)
     // const loadingRef = useRef<HTMLDivElement>(null)  
 
@@ -24,7 +24,7 @@ export default function Card({webtoon, children} : Props ) {
             <div className = 'relative mx-auto min-w-[200px] max-w-[250px] h-[300px]'>
                 <Image 
                     className = "border-none border-2 rounded-xl cursor-pointer" 
-                    src = {`/images${thumnail}`} 
+                    src = {thumbnailUrl} 
                     alt = 'card image' 
                     fill = {true}
                     // onLoadingComplete={()=>{loadingRef.current?.remove()}}    이미지 로딩 애니메이션
