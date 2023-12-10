@@ -18,13 +18,14 @@ const onePageCountPage = 10;
 
 export default function WebtoonList({webtoonList, isRank = false} : Props) {
   const [nowPageNum, setPageNum] = useState<number>(1);
-  const {data, isLoading, error} = useSWR('/api/list', fetcher)
+  // const {data, isLoading, error} = useSWR('/api/list', fetcher)
+  const {data, error} = useSWR<Webtoon[]>('http://localhost:9001/api/vi/webtoon/list?page=1', fetcher)
 
-  useEffect(()=>{
-    const webtoons = fetch(`/api/list?page=${nowPageNum}`)
-                      .then((res)=>res.json())
-                      .then(data)
-  }, [nowPageNum])
+  // useEffect(()=>{
+  //   const webtoons = fetch(`/api/list?page=${nowPageNum}`)
+  //                     .then((res)=>res.json())
+  //                     .then(data)
+  // }, [nowPageNum])
 
   function listButton(){
     let arr 
@@ -33,7 +34,7 @@ export default function WebtoonList({webtoonList, isRank = false} : Props) {
   return (
     <div className = "p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"> 
       {
-        webtoonList.map((webtoon, index)=>{
+        (data as Webtoon[]).map((webtoon, index)=>{
           return(
             <Card webtoon={webtoon}>
               {
