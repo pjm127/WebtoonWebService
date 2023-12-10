@@ -35,7 +35,7 @@ public class CommentController {
     //댓글 작성
     @PostMapping("/create/{id}")
     @Operation(summary = "댓글 작성")
-    public ResponseEntity<String> createComment(@PathVariable("id") Long webtoonId, Principal principal,
+    public ResponseEntity<String> createComment(@PathVariable("id") Long webtoonId,
                                                 @RequestBody CommentRequest createCommentRequest) {
         Webtoon webtoon = webtoonService.getWebtoonForComment(webtoonId);
         commentService.createComment(webtoon, createCommentRequest);
