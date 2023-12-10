@@ -61,6 +61,6 @@ public class CommentService {
     public void deleteComment(Long commentId) {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CustomException(NOT_FOUND_COMMENT));
-        commentRepository.delete(comment); //삭제
+        commentRepository.delete(comment); //삭제e
     }
 }
