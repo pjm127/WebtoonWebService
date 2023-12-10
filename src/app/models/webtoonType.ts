@@ -11,7 +11,7 @@ export type Webtoon = {
     author : string;
     url : string;
     thumbnailUrl : string;
-    genre : string[];
+    genre : string;
     likeCount : number;
     overallLikeCount : number;
     likeProportion : number;
