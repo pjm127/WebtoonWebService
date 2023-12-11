@@ -45,7 +45,7 @@ public class CommentService {
                 .comment(createCommentRequest.getComment())
                 .userId(createCommentRequest.getUserId())
                 .build();
-        commentRepository.save(com);
+        commentRepository.save(com); //action t est
 
     }
 
