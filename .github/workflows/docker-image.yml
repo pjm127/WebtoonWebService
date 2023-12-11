@@ -3,9 +3,9 @@ name: Java CI with Gradle
 
 on:
   pull_request:
-    types:
-      - closed
-    branches: [ "develop" ]
+    branches:
+      - develop
+    types: [closed]
 jobs:
   if_merged:
     if: github.event.pull_request.merged == true
