@@ -5,19 +5,19 @@ on:
   pull_request:
     branches:
       - develop
-    types:
-      - closed
+    
 
 # Later, in the jobs section of your actions.yml file.
 jobs:
-  if_merged:
-    if: github.event.pull_request.merged == true
+  deploy:
     runs-on: ubuntu-latest
     
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-    
+      with:
+        repo-token: "${{ secrets.TOKEN}}"
+      
     # Spring Boot 어플리케이션 Build (1)
     - name: Spring Boot Build
       run: ./gradlew clean build --exclude-task test
