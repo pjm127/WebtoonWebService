@@ -45,7 +45,7 @@ public class CommentService {
                 .comment(createCommentRequest.getComment())
                 .userId(createCommentRequest.getUserId())
                 .build();
-        commentRepository.save(com); //action ewe
+        commentRepository.save(com); //action ewewww
 
     }
 
