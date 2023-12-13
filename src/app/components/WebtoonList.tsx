@@ -7,7 +7,7 @@ import Rank from './Rank'
 import useSWR from 'swr'
 
 type Props = {
-    webtoonList : TempWebtoon[],
+    webtoonList : Webtoon[],
     isRank? : boolean
 }
 
@@ -23,19 +23,19 @@ export default function WebtoonList({webtoonList, isRank = false} : Props) {
   // const {content} = data as WebtoonListPage;
   let webtoonInfo : WebtoonListPage | void; 
   let webContent : Webtoon[]
-  // const [webtoonData, setWebtoonData] = useState<WebtoonListPage>();
+  const [webtoonData, setWebtoonData] = useState<WebtoonListPage>();
 
-  // useLayoutEffect(()=>{
-  //   (async()=>{
-  //     await fetch('http://localhost:9001/api/v1/webtoon/list?page=1')
-  //     .then(res=>res.json())
-  //     .then(res=>setWebtoonData(res));
-  //   })();
-  // }, [])
+  useLayoutEffect(()=>{
+    (async()=>{
+      await fetch('http://localhost:9001/api/v1/webtoon/list?page=0')
+      .then(res=>res.json())
+      .then(res=>setWebtoonData(res));
+    })();
+  }, [])
 
-  // useEffect(()=>{
-  //   console.log("웹툰데이터@@@@@@@", webtoonData);
-  // },[webtoonData])
+  useEffect(()=>{
+    console.log("웹툰데이터@@@@@@@", webtoonData);
+  },[webtoonData])
 
   function listButton(){
     let arr 
@@ -44,8 +44,8 @@ export default function WebtoonList({webtoonList, isRank = false} : Props) {
   return (
     <div className = "p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"> 
       {
-        // webtoonData &&
-        (webtoonList).map((webtoon, index)=>{
+        webtoonData &&
+        (webtoonData.content).map((webtoon, index)=>{
           return(
             <Card webtoon={webtoon}>
               {

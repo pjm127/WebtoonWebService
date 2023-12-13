@@ -7,11 +7,11 @@ import CloseButton from './ui/CloseButton'
 
 export default function WebtoonInfoModal({
     children,
-    webtoon : {title, url, thumnail, genre, likeCount, firstDate, dayOfweek, platform},
+    webtoon : {title, url, thumbnailUrl, genre, likeCount, firstDate, dayOfWeek, platform},
     onClose
 } : {
     children : React.ReactNode,
-    webtoon : TempWebtoon,
+    webtoon : Webtoon,
     onClose : () => void
 }) {
   return (

@@ -6,24 +6,24 @@ import CommentModal from './CommentModal'
 import CommentList from './CommentList'
 
 export default function InfoModalDetail({
-    webtoon : {title, url, creator, thumnail, genre, likeCount, firstDate, dayOfweek, platform},
+    webtoon : {title, url, author, thumbnailUrl, genre, likeCount, firstDate, dayOfWeek, platform},
 } : {
-    webtoon : TempWebtoon
+    webtoon : Webtoon
 }) {
   
   return (
     <section className = "p-10 w-[500px] h-[700px] m-auto gap-4 grid grid-rows-[repeat(10,minmax(0,1fr))] grid-cols-2 bg-white rounded-xl mt-6">
             <Image 
-                src = {`/images${thumnail}`} 
+                src = {thumbnailUrl} 
                 alt = {'modal image'}
                 width = {200}
                 height = {400}
                 className = "max-h-full max-w-full overfl row-start-1 row-end-6"
             ></Image>
             <p>제목 : {title}</p>
-            <p>작가 : {creator}</p>
+            <p>작가 : {author}</p>
             <p>장르 : {genre}</p>
-            <p>요일 : {dayOfweek}</p>
+            <p>요일 : {dayOfWeek}</p>
             <p>플랫폼 : {platform}</p>
             <Link 
                 href = {url} 
