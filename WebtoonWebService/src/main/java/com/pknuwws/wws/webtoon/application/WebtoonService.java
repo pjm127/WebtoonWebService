@@ -45,9 +45,9 @@ public class WebtoonService {
     }
 
    //장르별 웹툰 목록
-   public Page<WebtoonListResponse> getGenreWebtoonList(String genre, int page) {
+   public Page<WebtoonListResponse> getGenreWebtoonList(GenreType genre, int page) {
        Pageable pageable = PageRequest.of(page, 10, Sort.by(Sort.Order.desc("likeProportion")));
-       return webtoonRepository.findAll(pageable).map(webtoon -> WebtoonListResponse.builder()
+       return webtoonRepository.findByGenre(genre,pageable).map(webtoon -> WebtoonListResponse.builder()
                .id(webtoon.getId())
                .likeProportion(webtoon.getLikeProportion())
                .title(webtoon.getTitle())

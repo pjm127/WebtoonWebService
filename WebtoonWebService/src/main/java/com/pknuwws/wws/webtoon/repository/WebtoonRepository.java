@@ -1,6 +1,7 @@
 package com.pknuwws.wws.webtoon.repository;
 
 import com.pknuwws.wws.webtoon.domain.Webtoon;
+import com.pknuwws.wws.webtoon.domain.enumPackage.GenreType;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.data.domain.Page;
@@ -15,7 +16,7 @@ public interface WebtoonRepository extends JpaRepository<Webtoon, Long> , Webtoo
   Webtoon findByTitle(String title);
 
   @Query("SELECT w FROM Webtoon w WHERE w.genre = :genre")
-  Page<Webtoon> findByGenre(@Param("genre") String genre, Pageable pageable);
+  Page<Webtoon> findByGenre(@Param("genre") GenreType genre, Pageable pageable);
 
   @Query("SELECT w FROM Webtoon w WHERE w.firstDate > :firstDate")
   Page<Webtoon> findByFirstDate(@Param("firstDate") LocalDate firstDate,Pageable pageable);

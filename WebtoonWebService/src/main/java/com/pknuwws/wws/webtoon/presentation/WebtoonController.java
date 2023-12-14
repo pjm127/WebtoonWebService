@@ -47,7 +47,7 @@ public class WebtoonController {
     @GetMapping("/genre-list")
     @Operation(summary = "장르별 웹툰 랭킹 확인")
     private ResponseEntity< Page<WebtoonListResponse>> getGenreWebtoon(
-        @RequestParam("genre") String genre,
+        @RequestParam("genre") GenreType genre,
         @PageableDefault @Parameter(name="page") int page)
     {
         return ResponseEntity.ok(webtoonService.getGenreWebtoonList(genre, page));
