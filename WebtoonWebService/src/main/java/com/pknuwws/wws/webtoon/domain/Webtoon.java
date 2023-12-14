@@ -1,5 +1,7 @@
 package com.pknuwws.wws.webtoon.domain;
 
+import com.pknuwws.wws.webtoon.domain.enumPackage.DayOfWeekType;
+import com.pknuwws.wws.webtoon.domain.enumPackage.GenreType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,12 +26,12 @@ public class Webtoon {
     private String author; // 작가
     private String url; //링크
     private String thumbnailUrl; //썸네일 링크
-    private String genre; //장르
+    private GenreType genre; //장르
     private Integer likeCount; //좋아요
     private Integer overallLikeCount; //전체 좋아요
     private Float likeProportion; // likeCount / overallLikeCount
     private LocalDate firstDate; //첫 연재일
-    private String dayOfWeek; // 연재 요일
+    private DayOfWeekType dayOfWeek; // 연재 요일
     private String platform; //플랫폼
 
     public void updateTitle(String title) {
@@ -48,9 +50,7 @@ public class Webtoon {
         this.thumbnailUrl = thumbnailUrl;
     }
 
-    public void updateGenre(String genre) {
-        this.genre = genre;
-    }
+    //public void updateGenre(String genre) {this.genre = genre;}
 
     public void updateLikeCount(Integer likeCount) {
         this.likeCount = likeCount;
@@ -68,9 +68,7 @@ public class Webtoon {
         this.firstDate = firstDate;
     }
 
-    public void updateDayOfWeek(String dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
-    }
+  //  public void updateDayOfWeek(String dayOfWeek) {this.dayOfWeek = dayOfWeek;}
 
     public void updatePlatform(String platform) {
         this.platform = platform;

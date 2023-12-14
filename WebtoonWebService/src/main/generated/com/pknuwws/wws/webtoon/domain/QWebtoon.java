@@ -24,11 +24,11 @@ public class QWebtoon extends EntityPathBase<Webtoon> {
 
     public final ListPath<Comment, QComment> coments = this.<Comment, QComment>createList("coments", Comment.class, QComment.class, PathInits.DIRECT2);
 
-    public final StringPath dayOfWeek = createString("dayOfWeek");
+    public final EnumPath<com.pknuwws.wws.webtoon.domain.enumPackage.DayOfWeekType> dayOfWeek = createEnum("dayOfWeek", com.pknuwws.wws.webtoon.domain.enumPackage.DayOfWeekType.class);
 
     public final DatePath<java.time.LocalDate> firstDate = createDate("firstDate", java.time.LocalDate.class);
 
-    public final StringPath genre = createString("genre");
+    public final EnumPath<com.pknuwws.wws.webtoon.domain.enumPackage.GenreType> genre = createEnum("genre", com.pknuwws.wws.webtoon.domain.enumPackage.GenreType.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 

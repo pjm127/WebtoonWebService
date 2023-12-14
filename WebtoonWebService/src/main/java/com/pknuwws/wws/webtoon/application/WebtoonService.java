@@ -2,6 +2,8 @@ package com.pknuwws.wws.webtoon.application;
 
 import com.pknuwws.wws.exception.CustomException;
 import com.pknuwws.wws.webtoon.domain.Webtoon;
+import com.pknuwws.wws.webtoon.domain.enumPackage.DayOfWeekType;
+import com.pknuwws.wws.webtoon.domain.enumPackage.GenreType;
 import com.pknuwws.wws.webtoon.dto.WebtoonListResponse;
 import com.pknuwws.wws.webtoon.repository.WebtoonRepository;
 
@@ -111,7 +113,7 @@ public class WebtoonService {
     }
 
     //웹툰 검색
-    public Page<WebtoonListResponse>  searchWebtoonList(String keyword, String week, String genre, Pageable page){
-        return webtoonRepository.searchWebtoonList(keyword,genre,week,page); //ㄷ
+    public Page<WebtoonListResponse>  searchWebtoonList(String keyword, DayOfWeekType week, GenreType genre, Pageable page){
+        return webtoonRepository.searchWebtoonList(keyword,genre,week,page);
     }
 }

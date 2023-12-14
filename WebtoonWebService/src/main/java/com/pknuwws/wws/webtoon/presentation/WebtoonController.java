@@ -1,6 +1,8 @@
 package com.pknuwws.wws.webtoon.presentation;
 
 import com.pknuwws.wws.webtoon.domain.Webtoon;
+import com.pknuwws.wws.webtoon.domain.enumPackage.DayOfWeekType;
+import com.pknuwws.wws.webtoon.domain.enumPackage.GenreType;
 import com.pknuwws.wws.webtoon.dto.WebtoonListResponse;
 import com.pknuwws.wws.webtoon.application.WebtoonService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -63,12 +65,12 @@ public class WebtoonController {
     @GetMapping("/search")
     @Operation(summary = "장르, 요일, 검색어로 검색")
     private ResponseEntity<Page<WebtoonListResponse>> searchWebtoon(
-        @RequestParam("keyword") String keyword,
-        @RequestParam("genre") String genre,
-        @RequestParam("week") String week,
+            @RequestParam(value = "keyword", required = false) String keyword,
+            @RequestParam(value = "genre", required = false) GenreType genre,
+            @RequestParam(value = "week", required = false) DayOfWeekType week,
         @PageableDefault Pageable page)
     {
-        return ResponseEntity.ok(webtoonService.searchWebtoonList(keyword, genre, week, page)) ;
+        return ResponseEntity.ok(webtoonService.searchWebtoonList(keyword, week, genre, page)) ;
     }
 
 }

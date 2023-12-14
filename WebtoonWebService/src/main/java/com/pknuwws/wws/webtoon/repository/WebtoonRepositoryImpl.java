@@ -5,6 +5,9 @@ import static io.jsonwebtoken.lang.Collections.isEmpty;
 import static org.springframework.util.StringUtils.hasText;
 
 
+import com.pknuwws.wws.webtoon.domain.enumPackage.DayOfWeekType;
+import com.pknuwws.wws.webtoon.domain.enumPackage.GenreType;
+import com.pknuwws.wws.webtoon.dto.QWebtoonListResponse;
 import com.pknuwws.wws.webtoon.dto.WebtoonListResponse;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -23,25 +26,25 @@ public class WebtoonRepositoryImpl implements WebtoonRepositoryCustom{
     }
 
     @Override
-    public Page<WebtoonListResponse> searchWebtoonList(String keyword, String genre, String week, Pageable pageable) {
+    public Page<WebtoonListResponse> searchWebtoonList(String keyword, GenreType genre, DayOfWeekType dayOfWeek, Pageable pageable) {
 
-        return null;
-       /* QueryResults<WebtoonListResponse> results = queryFactory.select(
-                        new QWebtoonListRequest(webtoon.title, webtoon.url, webtoon.thumbnailUrl, webtoon.genre,
+
+        QueryResults<WebtoonListResponse> results = queryFactory.select(
+                        new QWebtoonListResponse(webtoon.id ,webtoon.title, webtoon.url, webtoon.thumbnailUrl, webtoon.genre,
                                 webtoon.likeCount, webtoon.overallLikeCount, webtoon.likeProportion, webtoon.firstDate,
                                 webtoon.dayOfWeek
                                 , webtoon.platform))
-                .from(webtoon).where(genreEq(genre), weekEq(week), genreLike(keyword)).fetchResults();
+                .from(webtoon).where(genreEq(genre), weekEq(dayOfWeek), genreLike(keyword)).fetchResults();
         List<WebtoonListResponse> results1 = results.getResults();
         long total = results.getTotal();
-        return new PageImpl<>(results1, pageable, total);*/
+        return new PageImpl<>(results1, pageable, total);
 
     }
-    private BooleanExpression genreEq(String genre) {
-        return hasText(genre) ? null : webtoon.genre.eq(genre);
+    private BooleanExpression genreEq(GenreType genre) {
+        return genre != null ? webtoon.genre.eq(genre) : null;
     }
-    private BooleanExpression weekEq(String week) {
-        return hasText(week) ? null : webtoon.genre.eq(week);
+    private BooleanExpression weekEq(DayOfWeekType dayOfWeek) {
+        return dayOfWeek != null ? webtoon.dayOfWeek.eq(dayOfWeek) : null;
     }
     private BooleanExpression genreLike(String keyword) {
         return hasText(keyword) ? webtoon.title.like("%" + keyword + "%") : null;
