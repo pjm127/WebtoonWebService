@@ -68,7 +68,7 @@ public class WebtoonService {
     public Page<WebtoonListResponse> getNewWebtoonList(int page) {
         Pageable pageable = PageRequest.of(page, 10, Sort.by(Sort.Order.desc("likeProportion")));
         LocalDate localDate = LocalDate.now().minusMonths(3);
-        return webtoonRepository.findAll(pageable).map(webtoon -> WebtoonListResponse.builder()
+        return webtoonRepository.findByFirstDate(localDate,pageable).map(webtoon -> WebtoonListResponse.builder()
                 .id(webtoon.getId())
                 .likeProportion(webtoon.getLikeProportion())
                 .title(webtoon.getTitle())
