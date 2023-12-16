@@ -8,6 +8,8 @@ import {useRouter} from 'next/navigation'
 import TransitionContext from './context/TransitionContext'
 import { NavigationContextProvider } from './context/NavigationContext'
 import InitTransition from './components/transition/InitTransition'
+import Background from './components/BackgroundPage'
+import { getBackgroundImage } from './service/webtoonInfo'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -18,17 +20,17 @@ export const metadata: Metadata = {
 }
 
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-
+  const backgroundImage = await getBackgroundImage();
   return (
     <html lang="en">
         <body className={inter.className}>
-          <InitTransition/>
-          {/* <Background></Background> */}
+          {/* <InitTransition/> */}
+          {/* <Background backgroundImage={backgroundImage}></Background> */}
           <NavigationContextProvider>
             <Navbar></Navbar>
             <div className = 'relative'>

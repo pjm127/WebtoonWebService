@@ -22,17 +22,17 @@ export default function Card({webtoon, children} : Props ) {
     return (
         <div className = 'relative border-2 text-center rounded-md border-none overflow-hidden hover:scale-90 transition-transform'>
             <div className = 'relative mx-auto min-w-[200px] max-w-[250px] h-[300px]'>
-                <Image 
+                <img 
                     className = "border-none border-2 rounded-xl cursor-pointer" 
                     src = {`${thumbnailUrl}`} 
                     alt = 'card image' 
-                    fill = {true}
+                    // fill = {true}
                     // onLoadingComplete={()=>{loadingRef.current?.remove()}}    이미지 로딩 애니메이션
                     onClick={(event)=>{
                         if(event.target === event.currentTarget) setModal(false);
                         setModal(true)
                     }}
-                ></Image>
+                ></img>
                 {/* <div className = 'imageLoading' ref={loadingRef}></div> */}
             </div>
             <p className = 'mt-2  text-stone-400'>{title}</p>

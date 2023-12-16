@@ -26,7 +26,7 @@ export default function SignIn({onClose} : Props) {
                         placeholder='비밀번호'
                         className= 'p-2 shadow-sm mb-10'
                     ></input>
-                    <button type='submit' className='p-3 w-20 text-white rounded-lg bg-sky-500'>로그인</button>
+                    <input type='submit' className='p-3 w-20 text-white rounded-lg bg-sky-500'>로그인</input>
                 </form>
             </div>
             <button onClick={onClose} className='fixed top-[10%] right-[15%]'>
