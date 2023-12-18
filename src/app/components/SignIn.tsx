@@ -5,6 +5,10 @@ import CloseButton from './ui/CloseButton';
 type Props = {
     onClose : ()=>void
 }
+// 1. 로그인 userId, accessToken을 localStorage 에 저장.
+// 2. useState(localStorage.get({userId, accessToken})) 상태 관리
+// 3. 새로고침 할 때도 로그인 유지. (원래는 새로고침 할 때마다 로그인 정보를 가져와서 로그인 해야함. )
+// 4. NavBar 는 로그인 되어있는 상태라면 userId를 받아와서 표시한다. 
 
 export default function SignIn({onClose} : Props) {
     const [loginInfo, setLoginInfo] = useState({
@@ -33,7 +37,17 @@ export default function SignIn({onClose} : Props) {
                     },
                     body : JSON.stringify(loginInfo),
                 })
-                .then(res => console.log("응답은?? : ",res))
+                .then(res => res.json())
+                .then(res => {
+                    console.log("객체는??", res)
+                    if(res.access_token){
+                        localStorage.setItem('login-Status', JSON.stringify({
+                            isLogin : true,
+                            userId : res.userId,
+                            accessToken : res.access_token
+                        }));
+                    }
+                })
             }
         )()
     }

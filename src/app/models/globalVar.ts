@@ -7,3 +7,4 @@ export const genre = [
     '일상',
     '판타지'
 ]
+

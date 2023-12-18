@@ -30,7 +30,7 @@ export default async function RootLayout({
     <html lang="en">
         <body className={inter.className}>
           {/* <InitTransition/> */}
-          {/* <Background backgroundImage={backgroundImage}></Background> */}
+          <Background backgroundImage={backgroundImage}></Background>
           <NavigationContextProvider>
             <Navbar></Navbar>
             <div className = 'relative'>

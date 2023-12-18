@@ -26,7 +26,8 @@ export default function Background({backgroundImage} : Props) {
             gsap.set(bgClass,{
                 opacity : 1,
             })
-            gsap.to(bgClass,{
+            const tl = gsap.timeline()
+            tl.to(bgClass,{
                 opacity : 0,
                 ease : 'power3.inOut',
                 duration : 2,

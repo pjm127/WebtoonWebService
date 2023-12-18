@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/react-transition-group": "^4.4.9",
+    "axios": "^1.6.2",
     "gsap": "^3.12.3",
     "gsap-trial": "^3.12.3",
     "next": "13.5.6",
