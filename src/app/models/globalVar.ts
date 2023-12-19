@@ -5,6 +5,8 @@ export const genre = [
     '무협',
     '미스터리',
     '일상',
-    '판타지'
+    '스포츠',
+    '기타',
 ]
 
+export const SERVER_URL = "http://localhost:9001/api/v1"

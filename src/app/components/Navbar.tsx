@@ -1,16 +1,18 @@
 'use client'
 
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import SearchIcon from './ui/SearchIcon'
 import ModalPortal from './ModalPortal'
 import SignIn from './SignIn'
 import Navigate from './Navigate'
 import { usePathname } from 'next/navigation'
 import NotLoginNav from './NotLoginNav'
+import LoginNav from './LoginNav'
+import { LoginContext } from '../context/LoginContextProvider'
 
 async function getTest(){
-  await fetch('http://localhost:9001/api/v1/webtoon/search?keyword="김부장"&genre="액션"&week="화"&page=0')
+  await fetch('http://localhost:9001/api/v1/webtoon/search?keyword="김부장"&genre="액션,"&week="화,"&page=0&size=1&sort="string" ')
   .then(res=>res.json())
   .then(res=>console.log(res))
 }
@@ -18,6 +20,8 @@ async function getTest(){
 export default function Navbar() {
   const [modal, setModal] = useState<boolean>(false)
   const path = usePathname();
+  const {isLogin, setIsLogin} = useContext(LoginContext)
+
   return (
     <div className = "flex flex-row p-3 justify-between items-center">
             <Navigate href= "/" disabled={path==='/' && true}>
@@ -30,16 +34,9 @@ export default function Navbar() {
             </Navigate>
             {/* <Link className = "p-3 border-solid border-2 border-indigo-600 rounded-lg hover:opacity-60 hover:text-white" href = "/signup"> */}
             {
-            // <Navigate href= "/signup" disabled={path==='/signup' && true}>
-            //     <div className = "p-3 border-solid border-2 border-indigo-600 rounded-lg hover:opacity-60 hover:text-white">
-            //         Sign Up
-            //     </div>
-            // </Navigate>
-            // <button 
-            //   className = 'p-3 border-sky-300 border-2 rounded-lg hover:opacity-60 hover:text-white'
-            //   onClick={()=>{setModal(true)}}
-            // >Sign In</button>
-              <NotLoginNav path = {path} setModal = {setModal}></NotLoginNav>
+              isLogin
+              ? <LoginNav></LoginNav>
+              : <NotLoginNav path = {path} setModal = {setModal}></NotLoginNav>
             }
         </nav>
         {

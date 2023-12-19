@@ -10,6 +10,7 @@ import { NavigationContextProvider } from './context/NavigationContext'
 import InitTransition from './components/transition/InitTransition'
 import Background from './components/BackgroundPage'
 import { getBackgroundImage } from './service/webtoonInfo'
+import LoginContextProvider from './context/LoginContextProvider'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -30,19 +31,21 @@ export default async function RootLayout({
     <html lang="en">
         <body className={inter.className}>
           {/* <InitTransition/> */}
-          <Background backgroundImage={backgroundImage}></Background>
+          {/* <Background backgroundImage={backgroundImage}></Background> */}
           <NavigationContextProvider>
-            <Navbar></Navbar>
-            <div className = 'relative'>
-              {/* <SWRConfigContext> */}
-                      <main>
+            <LoginContextProvider>
+              <Navbar></Navbar>
+              <div className = 'relative'>
+                {/* <SWRConfigContext> */}
+                        <main>
+                        
+                          {children}
                       
-                        {children}
-                    
-                      </main>
-              {/* </SWRConfigContext> */}
-            </div>
-            <div id = "modal"></div>
+                        </main>
+                {/* </SWRConfigContext> */}
+              </div>
+              <div id = "modal"></div>
+              </LoginContextProvider>
           </NavigationContextProvider>
         </body>
     </html>

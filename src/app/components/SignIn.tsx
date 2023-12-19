@@ -1,6 +1,7 @@
 'use client'
-import React, { MouseEvent, ChangeEvent, FormEvent, useState } from 'react'
+import React, { MouseEvent, ChangeEvent, FormEvent, useState, useContext } from 'react'
 import CloseButton from './ui/CloseButton';
+import { LoginContext } from '../context/LoginContextProvider';
 
 type Props = {
     onClose : ()=>void
@@ -15,6 +16,7 @@ export default function SignIn({onClose} : Props) {
         userId : "",
         password : "",
     })
+    const {setIsLogin} = useContext(LoginContext);
     const handleUserId = (e : ChangeEvent<HTMLInputElement>) => {
         setLoginInfo((prevState)=>{
             return {...prevState, userId : e.target.value};
@@ -40,12 +42,13 @@ export default function SignIn({onClose} : Props) {
                 .then(res => res.json())
                 .then(res => {
                     console.log("객체는??", res)
-                    if(res.access_token){
+                    if(res){
                         localStorage.setItem('login-Status', JSON.stringify({
-                            isLogin : true,
                             userId : res.userId,
                             accessToken : res.access_token
                         }));
+                        setIsLogin(true);
+                        onClose();
                     }
                 })
             }

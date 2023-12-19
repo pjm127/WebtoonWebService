@@ -64,3 +64,9 @@ export type TempWebtoon = {
     platform : string;
     likeProportion : number
 }
+
+export type WebtoonComment = {
+    id : number;
+    userId : string;
+    comment : string;
+}
