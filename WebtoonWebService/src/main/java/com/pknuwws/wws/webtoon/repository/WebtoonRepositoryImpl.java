@@ -7,8 +7,8 @@ import static org.springframework.util.StringUtils.hasText;
 
 import com.pknuwws.wws.webtoon.domain.enumPackage.DayOfWeekType;
 import com.pknuwws.wws.webtoon.domain.enumPackage.GenreType;
-import com.pknuwws.wws.webtoon.dto.QWebtoonListResponse;
-import com.pknuwws.wws.webtoon.dto.WebtoonListResponse;
+import com.pknuwws.wws.webtoon.dto.QWebtoonResponse;
+import com.pknuwws.wws.webtoon.dto.WebtoonResponse;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -26,16 +26,16 @@ public class WebtoonRepositoryImpl implements WebtoonRepositoryCustom{
     }
 
     @Override
-    public Page<WebtoonListResponse> searchWebtoonList(String keyword, GenreType genre, DayOfWeekType dayOfWeek, Pageable pageable) {
+    public Page<WebtoonResponse> searchWebtoonList(String keyword, GenreType genre, DayOfWeekType dayOfWeek, Pageable pageable) {
 
 
-        QueryResults<WebtoonListResponse> results = queryFactory.select(
-                        new QWebtoonListResponse(webtoon.id ,webtoon.title, webtoon.url, webtoon.thumbnailUrl, webtoon.genre,
+        QueryResults<WebtoonResponse> results = queryFactory.select(
+                        new QWebtoonResponse(webtoon.id ,webtoon.title, webtoon.url, webtoon.thumbnailUrl, webtoon.genre,
                                 webtoon.likeCount, webtoon.overallLikeCount, webtoon.likeProportion, webtoon.firstDate,
                                 webtoon.dayOfWeek
                                 , webtoon.platform))
                 .from(webtoon).where(genreEq(genre), weekEq(dayOfWeek), genreLike(keyword)).fetchResults();
-        List<WebtoonListResponse> results1 = results.getResults();
+        List<WebtoonResponse> results1 = results.getResults();
         long total = results.getTotal();
         return new PageImpl<>(results1, pageable, total);
 

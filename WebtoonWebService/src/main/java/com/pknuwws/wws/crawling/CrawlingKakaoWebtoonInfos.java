@@ -1,3 +1,4 @@
+/*
 package com.pknuwws.wws.crawling;
 
 import java.time.Duration;
@@ -57,7 +58,8 @@ public class CrawlingKakaoWebtoonInfos extends CrawlingWebtoonInfos {
 		return urls;
 	}
 
-	/*
+	*/
+/*
 	 * 수집 항목들:
 	 * 제목 ok
 	 * 링크 ok
@@ -66,7 +68,8 @@ public class CrawlingKakaoWebtoonInfos extends CrawlingWebtoonInfos {
 	 * 조회수: 네이버에서 좋아요 수로 대체했기 때문에 좋아요로 대체 ok
 	 * 첫 화 날짜 ok
 	 * 요일
-	 */
+	 *//*
+
 	@Override
 	protected Webtoon crawlWebtoons(String url) {
 //		Webtoon webtoon = new Webtoon();
@@ -192,3 +195,4 @@ public class CrawlingKakaoWebtoonInfos extends CrawlingWebtoonInfos {
 	}
 
 }
+*/

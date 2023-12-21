@@ -100,8 +100,7 @@ public abstract class CrawlingWebtoonInfos  {
 				original.updateTitle(webtoon.getTitle());
 				original.updateAuthor(webtoon.getAuthor());
 				original.updateUrl(webtoon.getUrl());
-				original.updateDayOfWeek(webtoon.getDayOfWeek());
-				original.updateGenre(webtoon.getGenre());
+
 				original.updatePlatform(webtoon.getPlatform());
 				original.updateThumbnailUrl(webtoon.getThumbnailUrl());
 				original.updateLikeCount(webtoon.getLikeCount());

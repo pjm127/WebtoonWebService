@@ -1,6 +1,7 @@
 package com.pknuwws.wws.webtoon.dto;
 
 
+import com.pknuwws.wws.webtoon.domain.Webtoon;
 import com.pknuwws.wws.webtoon.domain.enumPackage.DayOfWeekType;
 import com.pknuwws.wws.webtoon.domain.enumPackage.GenreType;
 import com.querydsl.core.annotations.QueryProjection;
@@ -10,9 +11,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 @Data
-@Builder
 @NoArgsConstructor
-public class WebtoonListResponse {
+public class WebtoonResponse {
 
     private Long id;
     private String title; //제목
@@ -27,8 +27,9 @@ public class WebtoonListResponse {
     private String platform; //플랫폼
 
 
+    @Builder
     @QueryProjection
-    public WebtoonListResponse(Long id, String title, String url, String thumbnailUrl, GenreType genre,
+    public WebtoonResponse(Long id, String title, String url, String thumbnailUrl, GenreType genre,
                                Integer likeCount, Integer overallLikeCount, Float likeProportion, LocalDate firstDate,
                                DayOfWeekType dayOfWeek, String platform) {
         this.id = id;
@@ -42,5 +43,21 @@ public class WebtoonListResponse {
         this.firstDate = firstDate;
         this.dayOfWeek = dayOfWeek;
         this.platform = platform;
+    }
+
+    public static WebtoonResponse of(Webtoon webtoon){
+        return WebtoonResponse.builder()
+                .id(webtoon.getId())
+                .title(webtoon.getTitle())
+                .url(webtoon.getUrl())
+                .thumbnailUrl(webtoon.getThumbnailUrl())
+                .genre(webtoon.getGenre())
+                .likeCount(webtoon.getLikeCount())
+                .overallLikeCount(webtoon.getOverallLikeCount())
+                .likeProportion(webtoon.getLikeProportion())
+                .firstDate(webtoon.getFirstDate())
+                .dayOfWeek(webtoon.getDayOfWeek())
+                .platform(webtoon.getPlatform())
+                .build();
     }
 }

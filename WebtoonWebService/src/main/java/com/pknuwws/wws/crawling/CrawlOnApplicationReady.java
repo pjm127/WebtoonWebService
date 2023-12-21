@@ -1,3 +1,4 @@
+/*
 package com.pknuwws.wws.crawling;
 
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -31,3 +32,4 @@ public class CrawlOnApplicationReady {
 	}
 
 }
+*/
